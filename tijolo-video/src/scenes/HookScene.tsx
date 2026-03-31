@@ -9,11 +9,12 @@ const { fontFamily: dmSans } = loadDM('normal', { weights: ['400', '500'], subse
 
 // Cloud of logos: spread further away from center for 90s version
 const BRAND_ICONS = [
-  { src: LOGOS.gmail, label: 'E-mail', x: 200, y: 300, size: 100 },
-  { src: LOGOS.notion, label: 'Notion', x: 1650, y: 250, size: 90 },
-  { src: LOGOS.drive, label: 'Drive', x: 300, y: 750, size: 100 },
-  { src: staticFile(LOGOS.monday), label: 'Monday', x: 1550, y: 800, size: 100 },
-  { src: LOGOS.whatsapp, label: 'WhatsApp', x: 960, y: 150, size: 100 },
+  { src: LOGOS.gmail, label: 'E-mail', x: 160, y: 220, size: 125 },
+  { src: LOGOS.notion, label: 'Notion', x: 1760, y: 180, size: 115 },
+  { src: LOGOS.drive, label: 'Drive', x: 180, y: 840, size: 125 },
+  { src: staticFile(LOGOS.monday), label: 'Monday', x: 1740, y: 860, size: 125 },
+  { src: LOGOS.whatsapp, label: 'WhatsApp', x: 960, y: 80, size: 125 },
+  { src: LOGOS.dropbox, label: 'Dropbox', x: 960, y: 880, size: 125 },
 ];
 
 export const HookScene: React.FC = () => {
@@ -57,12 +58,13 @@ export const HookScene: React.FC = () => {
               left: icon.x + floatX(i),
               top: icon.y + floatY(i),
               opacity: iconSpring * fadeOut,
-              transform: `scale(${iconSpring})`,
+              transform: `scale(${iconSpring}) translateX(-50%)`,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               gap: 12,
               zIndex: 5,
+              transformOrigin: 'center center',
             }}
           >
              <div style={{ width: icon.size, height: icon.size, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -99,7 +101,7 @@ export const HookScene: React.FC = () => {
         }}
       >
         Seus projetos estão espalhados em <br/>
-        <span style={{ fontWeight: 500, fontStyle: 'italic' }}>5 ferramentas</span> diferentes?
+        diversas ferramentas diferentes?
       </div>
     </AbsoluteFill>
   );

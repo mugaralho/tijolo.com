@@ -51,6 +51,7 @@ export const LOGOS = {
   monday: 'monday_logo.png', // User uploaded as monday_logo.png in public/
   whatsapp: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg',
   gmail: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg',
+  dropbox: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Dropbox_Icon.svg',
 } as const;
 
 export const SCENE_FRAMES = {

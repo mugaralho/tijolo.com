@@ -22,12 +22,7 @@ export const TijoloDemo: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ background: '#000' }}>
-      {/* Background ambient music */}
-      <Audio
-        src="https://cdn.pixabay.com/audio/2023/07/26/audio_03d9697a55.mp3"
-        volume={0.15}
-        loop
-      />
+
 
       <TransitionSeries>
         {/* 1. Intro (5s) */}
@@ -49,17 +44,17 @@ export const TijoloDemo: React.FC = () => {
           <BrandReveal />
           {/* Transition Cursor clicks centered "tijolo" — Precise timing for 7s scene */}
           <Sequence from={SCENE_FRAMES.brand - 90} durationInFrames={90}>
-             <AbsoluteFill>
-                <AnimatedCursor 
-                    startX={1920/2 + 250} 
-                    startY={1080/2 + 250} 
-                    endX={1920/2} 
-                    endY={1080/2 + 45} // Precise click on "tijolo" text
-                    startFrame={0} 
-                    duration={40} 
-                    clickFrame={45} 
-                />
-             </AbsoluteFill>
+            <AbsoluteFill>
+              <AnimatedCursor
+                startX={1920 / 2 + 250}
+                startY={1080 / 2 + 250}
+                endX={1920 / 2}
+                endY={1080 / 2 + 45} // Precise click on "tijolo" text
+                startFrame={0}
+                duration={40}
+                clickFrame={45}
+              />
+            </AbsoluteFill>
           </Sequence>
         </TransitionSeries.Sequence>
 
