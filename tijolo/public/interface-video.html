@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tijolo – Projetos</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=DM+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ─── Tokens ─── */
+    :root {
+      --bg: #FAFAFA;
+      --card: #FFFFFF;
+      --main: #111111;
+      --muted: #666666;
+      --light: #999999;
+      --border: #EAEAEA;
+      --border-dark: #111111;
+      --sidebar-w: 210px;
+      --topbar-h: 52px;
+      --trans: all 0.2s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--main);
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── TOP BAR ─── */
+    .topbar {
+      height: var(--topbar-h);
+      display: flex;
+      align-items: stretch;
+      /* border-bottom: 1px solid var(--border-dark); */
+      flex-shrink: 0;
+      background: var(--card);
+      position: relative;
+    }
+
+    .topbar::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      height: 3px;
+      border-radius: 3px;
+      background: #ccc;
+      z-index: 10;
+    }
+
+    .topbar-logo {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      /* border-right: 1px solid var(--border-dark); */
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+      position: relative;
+    }
+
+    .topbar-logo::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 15px;
+      bottom: 0;
+      width: 3px;
+      border-radius: 3px;
+      background: #ccc;
+    }
+
+    .topbar-logo span {
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--light);
+      margin-left: 1px;
+    }
+
+    .topbar-breadcrumb {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 8px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .topbar-breadcrumb a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: var(--trans);
+    }
+
+    .topbar-breadcrumb a:hover {
+      color: var(--main);
+    }
+
+    .topbar-breadcrumb strong {
+      color: var(--main);
+      font-weight: 500;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      transition: var(--trans);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: #f5f5f5;
+      color: var(--main);
+    }
+
+    .btn-primary {
+      background: var(--main);
+      color: #fff;
+      border-color: var(--main);
+    }
+
+    .btn-primary:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    /* ─── LAYOUT BODY ─── */
+    .layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .layout::after {
+      content: "";
+      position: absolute;
+      left: calc(var(--sidebar-w) - 3px);
+      top: 0;
+      bottom: 15px;
+      width: 3px;
+      border-radius: 3px;
+      background: #ccc;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      /* border-right: 1px solid var(--border-dark); */
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: var(--card);
+    }
+
+    .sidebar-label {
+      padding: 18px 18px 6px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+
+    /* Nav items */
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 18px;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--muted);
+      cursor: pointer;
+      transition: var(--trans);
+      text-decoration: none;
+      border-radius: 0;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: #f4f4f4;
+      color: var(--main);
+    }
+
+    .nav-item.active {
+      background: #EFEFEF;
+      color: var(--main);
+      font-weight: 500;
+    }
+
+    .nav-item svg {
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    .nav-item.active svg {
+      opacity: 1;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--main);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 1px 6px;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .nav-expand {
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: var(--light);
+      transition: transform 0.2s;
+    }
+
+    .nav-item.open .nav-expand {
+      transform: rotate(90deg);
+    }
+
+    /* Sub-items (projects list) */
+    .nav-sub {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.25s ease;
+    }
+
+    .nav-sub.open {
+      max-height: 300px;
+    }
+
+    .nav-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 18px 5px 38px;
+      font-size: 0.83rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: var(--trans);
+      text-decoration: none;
+    }
+
+    .nav-sub-item::before {
+      content: '•';
+      font-size: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .nav-sub-item:hover {
+      color: var(--main);
+      background: #f4f4f4;
+    }
+
+    .nav-sub-item.active {
+      color: var(--main);
+      font-weight: 500;
+    }
+
+    /* Spacer */
+    .sidebar-spacer {
+      flex: 1;
+    }
+
+    .sidebar-config {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 18px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: var(--trans);
+      text-decoration: none;
+      position: relative;
+    }
+
+    .sidebar-config::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 18px;
+      right: 18px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--border);
+    }
+
+    .sidebar-config:hover {
+      color: var(--main);
+    }
+
+    .sidebar-config svg {
+      opacity: 0.6;
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Inner scroll wrapper */
+    .main-scroll {
+      flex: 1;
+      overflow-y: scroll;
+      padding: 36px 40px 60px;
+    }
+
+    /* Section header */
+    .area-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .area-title-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .area-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--main);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .area-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .area-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* ─── TABS ─── */
+    .tabs-row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+      gap: 0;
+    }
+
+    .tab-pill {
+      padding: 12px 22px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: var(--trans);
+      white-space: nowrap;
+      line-height: 1.3;
+    }
+
+    .tab-pill:hover {
+      color: var(--main);
+    }
+
+    .tab-company {
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--light);
+      margin-top: 1px;
+    }
+
+    .tab-pill.active .tab-company {
+      color: var(--muted);
+    }
+
+    /* "+ novo" items in sidebar */
+    .add-nav-item {
+      color: var(--light) !important;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    .add-nav-item:hover {
+      color: var(--main) !important;
+    }
+
+    .tab-pill.active {
+      color: var(--main);
+      border-bottom-color: var(--main);
+      font-weight: 600;
+    }
+
+    .tab-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .tab-add {
+      margin-left: 4px;
+      padding: 5px 10px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1;
+      transition: var(--trans);
+    }
+
+    .tab-add:hover {
+      background: #f5f5f5;
+      color: var(--main);
+    }
+
+    /* ─── TABLE ─── */
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .doc-table thead tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-table thead th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+
+    .doc-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .doc-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .doc-table tbody tr:hover {
+      background: #fafafa;
+    }
+
+    .doc-table td {
+      padding: 14px;
+      font-size: 0.88rem;
+      color: var(--main);
+      vertical-align: middle;
+    }
+
+    .doc-name {
+      font-weight: 500;
+    }
+
+    .file-col {
+      padding-right: 32px !important;
+    }
+
+    .file-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 200px;
+    }
+
+    .file-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #e53e3e;
+      background: #fff0f0;
+      border: 1px solid #fed7d7;
+      border-radius: 4px;
+      padding: 2px 5px;
+    }
+
+    .file-name {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .add-file-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--light);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--trans);
+      flex-shrink: 0;
+      margin-left: 4px;
+    }
+
+    .add-file-btn:hover {
+      border-color: #aaa;
+      color: var(--main);
+      background: #f5f5f5;
+    }
+
+    .file-placeholder {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: #bbb;
+      cursor: pointer;
+      transition: var(--trans);
+      white-space: nowrap;
+    }
+
+    .file-placeholder:hover {
+      border-color: #ccc;
+      color: var(--muted);
+      background: #f9f9f9;
+    }
+
+    .dl-icon {
+      color: var(--muted);
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+
+    .dl-icon:hover {
+      opacity: 1;
+    }
+
+    .pub-input {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border: none;
+      border-bottom: 1px dashed transparent;
+      background: transparent;
+      outline: none;
+      width: 90px;
+      padding: 2px 0;
+      transition: var(--trans);
+    }
+
+    .pub-input:hover {
+      border-bottom-color: var(--border);
+    }
+
+    .pub-input:focus {
+      border-bottom-color: var(--main);
+      color: var(--main);
+    }
+
+    .pub-input::placeholder {
+      color: #ccc;
+    }
+
+    .date-cell {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .date-dash {
+      color: #ccc;
+    }
+
+    .prazo-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .date-input {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      background: transparent;
+      outline: none;
+      width: 108px;
+      cursor: pointer;
+      transition: var(--trans);
+    }
+
+    .date-input:focus {
+      border-color: var(--main);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .badge-done {
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+
+    .badge-concl {
+      background: #FFF3E0;
+      color: #E65100;
+    }
+
+    .badge-prog {
+      background: #FFF9C4;
+      color: #6D5100;
+    }
+
+    .badge-empty {
+      color: #ccc;
+      font-size: 0.85rem;
+    }
+
+    .comment-col {
+      min-width: 260px;
+      width: 32%;
+    }
+
+    .comment-input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px dashed transparent;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      outline: none;
+      padding: 3px 0;
+      transition: var(--trans);
+    }
+
+    .comment-input:hover {
+      border-bottom-color: var(--border);
+    }
+
+    .comment-input:focus {
+      border-bottom-color: var(--main);
+      color: var(--main);
+    }
+
+    .comment-input::placeholder {
+      color: #ccc;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .access-modal {
+      background: var(--card);
+      width: 400px;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(10px);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-overlay.active .access-modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .close-btn:hover {
+      color: var(--main);
+    }
+
+    .invite-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .invite-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .invite-input:focus {
+      border-color: var(--main);
+    }
+
+    .users-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .user-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--main);
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-email {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--main);
+    }
+
+    .user-role {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .remove-user {
+      color: var(--light);
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+
+    .remove-user:hover {
+      color: #e53e3e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── TOP BAR ── -->
+  <header class="topbar">
+    <div class="topbar-logo">
+      <svg width="24" height="24" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+        <rect x="10" y="2" width="20" height="8" rx="2" />
+        <rect x="0" y="14" width="18" height="8" rx="2" />
+        <rect x="22" y="14" width="18" height="8" rx="2" />
+      </svg>
+      tijolo
+    </div>
+
+    <div class="topbar-breadcrumb">
+      <a href="interface-video.html">Projetos</a>
+      <span>›</span>
+      <strong>Residência Mourato Coelho</strong>
+    </div>
+
+    <div class="topbar-actions">
+    </div>
+  </header>
+
+  <!-- ── TWO-COLUMN LAYOUT ── -->
+  <div class="layout">
+
+    <!-- ── SIDEBAR ── -->
+    <nav class="sidebar">
+      <div class="sidebar-label">Escritório</div>
+
+      <!-- Leads -->
+      <div class="nav-item open" id="leads-toggle" onclick="toggleLeads()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        Leads
+        <span class="nav-expand">›</span>
+      </div>
+
+      <div class="nav-sub open" id="leads-sub">
+        <a href="#" class="nav-sub-item">Casa Itaporanga</a>
+        <a href="#" class="nav-sub-item">Loft Industrial SP</a>
+        <a href="#" class="nav-sub-item add-nav-item" onclick="event.preventDefault();">+ novo lead</a>
+      </div>
+
+      <!-- Projetos (expansível) -->
+      <div class="nav-item open" id="projetos-toggle" onclick="toggleProjects()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+        </svg>
+        Projetos
+        <span class="nav-expand">›</span>
+      </div>
+
+      <div class="nav-sub open" id="projetos-sub">
+        <a href="#" class="nav-sub-item active">Residência Mourato Coelho</a>
+        <a href="#" class="nav-sub-item">Escritório Rozini</a>
+        <a href="#" class="nav-sub-item">Apto Jacques</a>
+        <a href="#" class="nav-sub-item add-nav-item" onclick="event.preventDefault();">+ novo projeto</a>
+      </div>
+
+      <!-- Arquivos -->
+      <a href="#" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+          <polyline points="13 2 13 9 20 9" />
+        </svg>
+        Arquivos
+      </a>
+
+
+      <!-- Notificações -->
+      <a href="#" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+        </svg>
+        Notificações
+        <span class="nav-badge">3</span>
+      </a>
+
+      <div class="sidebar-spacer"></div>
+
+      <!-- Configurações -->
+      <a href="#" class="sidebar-config">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path
+            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+        Configurações
+      </a>
+    </nav>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="main">
+      <div class="main-scroll">
+
+        <!-- Area Header -->
+        <div class="area-header">
+          <div class="area-title-group">
+            <div class="area-dot"></div>
+            <div>
+              <div class="area-title">Residência Mourato Coelho</div>
+              <div class="area-meta">Cliente: João Silva · Início: 15/02/2026 · Endereço: Rua Mourato Coelho, 1234</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button
+              style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;border:1px solid #e0e0e0;background:transparent;cursor:pointer;color:#666;font-family:'DM Sans',sans-serif;font-weight:500;font-size:0.85rem;transition:all 0.2s;"
+              title="definições de acesso" onmouseenter="this.style.background='#f5f5f5';this.style.color='#111'"
+              onmouseleave="this.style.background='transparent';this.style.color='#666'" onclick="openAccessModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+              definições de acesso
+            </button>
+            <button
+              style="display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1px solid #111;background:#111;cursor:pointer;color:#fff;font-family:'DM Sans',sans-serif;font-weight:500;font-size:0.85rem;transition:all 0.2s;"
+              title="Agendar Reunião" onmouseenter="this.style.background='#333'"
+              onmouseleave="this.style.background='#111'">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              Agendar Reunião
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-row">
+          <div class="tab-pill active" data-tab="arq" onclick="switchTab(this)">
+            <span class="tab-dot" style="background:#C17A4A;"></span>
+            <div>
+              <div>Arquitetura</div>
+              <div class="tab-company">Studio Monolito</div>
+            </div>
+          </div>
+          <div class="tab-pill" data-tab="int" onclick="switchTab(this)">
+            <span class="tab-dot" style="background:#587F76;"></span>
+            <div>
+              <div>Interiores</div>
+              <div class="tab-company">Forma &amp; Alma</div>
+            </div>
+          </div>
+          <div class="tab-pill" data-tab="ins" onclick="switchTab(this)">
+            <span class="tab-dot" style="background:#9A775C;"></span>
+            <div>
+              <div>Instalações</div>
+              <div class="tab-company">Tech Engenharia</div>
+            </div>
+          </div>
+          <div class="tab-pill" data-tab="eng" onclick="switchTab(this)">
+            <span class="tab-dot" style="background:#5D5E87;"></span>
+            <div>
+              <div>Engenharia</div>
+              <div class="tab-company">Strut Cálculos</div>
+            </div>
+          </div>
+          <div class="tab-pill" data-tab="apr" onclick="switchTab(this)">
+            <span class="tab-dot" style="background:#8C6A5A;"></span>
+            <div>
+              <div>Aprovação</div>
+              <div class="tab-company">Prefeitura SP</div>
+            </div>
+          </div>
+          <button class="tab-add" title="Adicionar pasta">+</button>
+        </div>
+
+        <!-- Documents Table -->
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Arquivo</th>
+              <th>Publicado por</th>
+              <th>Data</th>
+              <th>Prazo</th>
+              <th>Status</th>
+              <th class="comment-col">Comentários</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- Implantação -->
+            <tr>
+              <td class="doc-name">Implantação</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Soltar PDF aqui
+                  </div>
+                  <button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell">
+                  <input type="text" class="date-input" placeholder="dd/mm/aaaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+
+            <!-- Plantas Mapa -->
+            <tr>
+              <td class="doc-name">Plantas Mapa</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-cell">
+                    <span class="file-badge">PDF</span>
+                    <span class="file-name">plantas_mapa_rev2.pdf</span>
+                    <svg class="dl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  </div>
+                  <button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" value="Murilo"></td>
+              <td><span class="date-cell">hoje</span></td>
+              <td>
+                <div class="prazo-cell">
+                  <input type="text" class="date-input" placeholder="dd/mm/aaaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+              </td>
+              <td><span class="badge badge-done">Feito</span></td>
+              <td class="comment-col"><input type="text" class="comment-input"
+                  value="Verificar escala 1:100 conforme solicitado"></td>
+            </tr>
+
+            <!-- Plantas Alvenaria -->
+            <tr>
+              <td class="doc-name">Plantas Alvenaria</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-cell">
+                    <span class="file-badge">PDF</span>
+                    <span class="file-name">alvenaria_v3.pdf</span>
+                    <svg class="dl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  </div>
+                  <button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" value="Murilo"></td>
+              <td><span class="date-cell">08/03</span></td>
+              <td>
+                <div class="prazo-cell">
+                  <input type="text" class="date-input" placeholder="dd/mm/aaaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+              </td>
+              <td><span class="badge badge-concl">Concluído</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" value="Aprovado pelo cliente em 08/03">
+              </td>
+            </tr>
+
+            <!-- Plantas Piso -->
+            <tr>
+              <td class="doc-name">Plantas Piso</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Soltar PDF aqui
+                  </div>
+                  <button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell">
+                  <input type="text" class="date-input" placeholder="dd/mm/aaaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+              </td>
+              <td><span class="badge badge-prog">Em progresso</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+
+            <!-- Plantas Forro -->
+            <tr>
+              <td class="doc-name">Plantas Forro</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Soltar PDF aqui
+                  </div>
+                  <button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell">
+                  <input type="text" class="date-input" placeholder="dd/mm/aaaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+
+            <!-- Cortes -->
+            <tr>
+              <td class="doc-name">Cortes</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-cell">
+                    <span class="file-badge">PDF</span>
+                    <span class="file-name">cortes_rev1.pdf</span>
+                    <svg class="dl-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  </div>
+                  <button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" value="Murilo"></td>
+              <td><span class="date-cell">05/03</span></td>
+              <td>
+                <div class="prazo-cell">
+                  <input type="text" class="date-input" placeholder="dd/mm/aaaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+              </td>
+              <td><span class="badge badge-prog">Em progresso</span></td>
+              <td class="comment-col"><input type="text" class="comment-input"
+                  value="Rev. 02 necessária — cota da varanda"></td>
+            </tr>
+
+            <!-- Elevações -->
+            <tr>
+              <td class="doc-name">Elevações</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    Soltar PDF aqui
+                  </div>
+                  <button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell">
+                  <input type="text" class="date-input" placeholder="dd/mm/aaaa">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <!-- Interiores table (hidden by default) -->
+        <table class="doc-table" id="table-int" style="display:none;">
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Arquivo</th>
+              <th>Publicado por</th>
+              <th>Data</th>
+              <th>Prazo</th>
+              <th>Status</th>
+              <th class="comment-col">Comentários</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="doc-name">Moodboard</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-cell"><span class="file-badge">PDF</span><span
+                      class="file-name">moodboard_v1.pdf</span><svg class="dl-icon" width="14" height="14"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg></div><button class="add-file-btn">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" value="Carla"></td>
+              <td><span class="date-cell">10/03</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" value="20/04"><svg width="14" height="14"
+                    viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge badge-done">Feito</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" value="Aprovado pelo cliente"></td>
+            </tr>
+            <tr>
+              <td class="doc-name">Layout mobiliário</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-cell"><span class="file-badge">PDF</span><span
+                      class="file-name">layout_mob_rev1.pdf</span><svg class="dl-icon" width="14" height="14"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg></div><button class="add-file-btn">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" value="Carla"></td>
+              <td><span class="date-cell">14/03</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" placeholder="dd/mm/aaaa"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge badge-prog">Em progresso</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" value="Revisar sala de jantar"></td>
+            </tr>
+            <tr>
+              <td class="doc-name">Especificações de revestimento</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>Soltar PDF aqui</div><button class="add-file-btn">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" placeholder="dd/mm/aaaa"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+            <tr>
+              <td class="doc-name">Perspectivas 3D</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>Soltar PDF aqui</div><button class="add-file-btn">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" value="30/04"><svg width="14" height="14"
+                    viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge badge-prog">Em progresso</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Instalações table -->
+        <table class="doc-table" id="table-ins" style="display:none;">
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Arquivo</th>
+              <th>Publicado por</th>
+              <th>Data</th>
+              <th>Prazo</th>
+              <th>Status</th>
+              <th class="comment-col">Comentários</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="doc-name">Projeto Elétrico</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>Soltar PDF aqui</div><button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" placeholder="dd/mm/aaaa"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+            <tr>
+              <td class="doc-name">Projeto Hidráulico</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>Soltar PDF aqui</div><button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" placeholder="dd/mm/aaaa"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Engenharia table -->
+        <table class="doc-table" id="table-eng" style="display:none;">
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Arquivo</th>
+              <th>Publicado por</th>
+              <th>Data</th>
+              <th>Prazo</th>
+              <th>Status</th>
+              <th class="comment-col">Comentários</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="doc-name">Cálculo Estrutural</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>Soltar PDF aqui</div><button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" placeholder="dd/mm/aaaa"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Aprovação table -->
+        <table class="doc-table" id="table-apr" style="display:none;">
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Arquivo</th>
+              <th>Publicado por</th>
+              <th>Data</th>
+              <th>Prazo</th>
+              <th>Status</th>
+              <th class="comment-col">Comentários</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="doc-name">Plantas Prefeitura</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>Soltar PDF aqui</div><button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" placeholder="dd/mm/aaaa"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+            <tr>
+              <td class="doc-name">RRT</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>Soltar PDF aqui</div><button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" placeholder="dd/mm/aaaa"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+            <tr>
+              <td class="doc-name">Alvará</td>
+              <td class="file-col">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="file-placeholder"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>Soltar PDF aqui</div><button class="add-file-btn" title="Adicionar arquivo">+</button>
+                </div>
+              </td>
+              <td><input type="text" class="pub-input" placeholder="—"></td>
+              <td><span class="date-dash">—</span></td>
+              <td>
+                <div class="prazo-cell"><input type="text" class="date-input" placeholder="dd/mm/aaaa"><svg width="14"
+                    height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg></div>
+              </td>
+              <td><span class="badge-empty">—</span></td>
+              <td class="comment-col"><input type="text" class="comment-input" placeholder="Adicionar comentário...">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div><!-- /main-scroll -->
+    </main>
+
+  </div><!-- /layout -->
+
+  <div class="modal-overlay" id="accessModal" onclick="if(event.target === this) closeAccessModal()">
+    <div class="access-modal">
+      <div class="modal-header">
+        <div class="modal-title">Definições de acesso</div>
+        <button class="close-btn" onclick="closeAccessModal()">&times;</button>
+      </div>
+      <div class="invite-section">
+        <input type="text" class="invite-input" placeholder="E-mail para convidar...">
+        <button class="btn btn-primary" style="padding: 10px 16px;">Convidar</button>
+      </div>
+      <div class="users-list">
+        <div class="user-item">
+          <div class="user-info">
+            <div class="user-avatar" style="background:#E2F0CB; color:#2E7D32;">MA</div>
+            <div class="user-details">
+              <span class="user-email">murilo.arquitetura</span>
+              <span class="user-role">Proprietário</span>
+            </div>
+          </div>
+        </div>
+        <div class="user-item" id="u1">
+          <div class="user-info">
+            <div class="user-avatar">SM</div>
+            <div class="user-details">
+              <span class="user-email">joao@studiomonolito.com</span>
+              <span class="user-role">Parceiro</span>
+            </div>
+          </div>
+          <button class="remove-user" onclick="document.getElementById('u1').remove()"
+            title="Remover acesso">&times;</button>
+        </div>
+        <div class="user-item" id="u2">
+          <div class="user-info">
+            <div class="user-avatar">FA</div>
+            <div class="user-details">
+              <span class="user-email">carla@formaalma.com</span>
+              <span class="user-role">Parceiro</span>
+            </div>
+          </div>
+          <button class="remove-user" onclick="document.getElementById('u2').remove()"
+            title="Remover acesso">&times;</button>
+        </div>
+        <div class="user-item" id="u3">
+          <div class="user-info">
+            <div class="user-avatar">TE</div>
+            <div class="user-details">
+              <span class="user-email">paulo@techengenharia.com</span>
+              <span class="user-role">Visualizador</span>
+            </div>
+          </div>
+          <button class="remove-user" onclick="document.getElementById('u3').remove()"
+            title="Remover acesso">&times;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openAccessModal() {
+      document.getElementById('accessModal').classList.add('active');
+    }
+    function closeAccessModal() {
+      document.getElementById('accessModal').classList.remove('active');
+    }
+
+    // Tabela ativa por data-tab
+    const tables = { arq: null, int: 'table-int', ins: null, eng: null, apr: null };
+    const mainTable = document.querySelector('.doc-table:not([id])');
+
+    function switchTab(el) {
+      document.querySelectorAll('.tab-pill').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      const tab = el.dataset.tab;
+      // show/hide main arq table
+      mainTable.style.display = (tab === 'arq') ? '' : 'none';
+      // show/hide other tables
+      document.getElementById('table-int').style.display = (tab === 'int') ? '' : 'none';
+      document.getElementById('table-ins').style.display = (tab === 'ins') ? '' : 'none';
+      document.getElementById('table-eng').style.display = (tab === 'eng') ? '' : 'none';
+      document.getElementById('table-apr').style.display = (tab === 'apr') ? '' : 'none';
+    }
+
+    function toggleProjects() {
+      const toggle = document.getElementById('projetos-toggle');
+      const sub = document.getElementById('projetos-sub');
+      toggle.classList.toggle('open');
+      sub.classList.toggle('open');
+    }
+
+    function toggleLeads() {
+      const toggle = document.getElementById('leads-toggle');
+      const sub = document.getElementById('leads-sub');
+      toggle.classList.toggle('open');
+      sub.classList.toggle('open');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      const hideNav = window.location.search.includes('hideNav=true');
+      
+      if (hideNav) {
+        document.querySelector('.topbar').style.display = 'none';
+        document.querySelector('.sidebar').style.display = 'none';
+        document.querySelector('.layout').style.height = '100vh'; // Reset flex logic
+        document.body.insertAdjacentHTML('beforeend', '<style>.layout::after { display: none !important; } .main-scroll::-webkit-scrollbar { display: none; } .main-scroll { -ms-overflow-style: none; scrollbar-width: none; overflow-x: hidden; }</style>');
+      }
+
+      if (!hash) return;
+      
+      const setMainTitle = (title) => {
+        const titleEl = document.querySelector('.area-title');
+        if (titleEl) titleEl.textContent = title;
+      };
+      
+      const hideMainContent = () => {
+        const tabsRow = document.querySelector('.tabs-row');
+        if (tabsRow) tabsRow.style.display = 'none';
+        document.querySelectorAll('.doc-table').forEach(t => t.style.display = 'none');
+      };
+
+      if (hash === '#visao') {
+        setMainTitle('Residência Almeida');
+        hideMainContent();
+        document.querySelector('.area-header button').parentElement.style.display = 'none';
+        document.querySelector('.area-header').insertAdjacentHTML('afterend', `
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; margin-top:20px;">
+            <div style="padding:24px; border:1px solid var(--border); border-radius:12px; background:#fff;">
+              <div style="font-size:13px; color:var(--muted); text-transform:uppercase; font-weight:600;">Atividades Recentes</div>
+              <div style="font-size:32px; font-family:'Outfit'; font-weight:500; font-variant-numeric: tabular-nums; color:var(--main); margin-top:12px;">14</div>
+            </div>
+            <div style="padding:24px; border:1px solid var(--border); border-radius:12px; background:#fff;">
+              <div style="font-size:13px; color:var(--muted); text-transform:uppercase; font-weight:600;">Próximo Prazo</div>
+              <div style="font-size:32px; font-family:'Outfit'; font-weight:500; font-variant-numeric: tabular-nums; color:var(--main); margin-top:12px;">15/03</div>
+            </div>
+            <div style="padding:24px; border:1px solid var(--border); border-radius:12px; background:#fff;">
+              <div style="font-size:13px; color:var(--muted); text-transform:uppercase; font-weight:600;">Arquivos Publicados</div>
+              <div style="font-size:32px; font-family:'Outfit'; font-weight:500; font-variant-numeric: tabular-nums; color:var(--main); margin-top:12px;">142</div>
+            </div>
+          </div>
+          <div style="margin-top: 40px;">
+            <div style="font-size: 13px; color: var(--muted); text-transform: uppercase; font-weight: 600; margin-bottom: 16px;">Equipes Envolvidas no Projeto</div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: #fff; border: 1px solid var(--border); border-radius: 30px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #C17A4A;"></div> <span style="font-size: 13px; font-weight: 500;">Studio Monolito (Arquitetura)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: #fff; border: 1px solid var(--border); border-radius: 30px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #587F76;"></div> <span style="font-size: 13px; font-weight: 500;">Forma & Alma (Interiores)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: #fff; border: 1px solid var(--border); border-radius: 30px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #9A775C;"></div> <span style="font-size: 13px; font-weight: 500;">Tech Engenharia (Instalações)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: #fff; border: 1px solid var(--border); border-radius: 30px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #5D5E87;"></div> <span style="font-size: 13px; font-weight: 500;">Strut Cálculos (Engenharia)</span>
+              </div>
+            </div>
+          </div>
+        `);
+      } else if (hash === '#notificacoes') {
+        setMainTitle('Central de Notificações');
+        hideMainContent();
+        document.querySelector('.area-header button').parentElement.style.display = 'none';
+        document.querySelector('.area-header').insertAdjacentHTML('afterend', `
+          <div style="padding-left: 0; margin-top: 16px;">
+            <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #999; margin-bottom: 16px; margin-top: 24px;">Arquitetura</div>
+            <div style="border-left: 2px solid var(--border); padding-left: 20px;">
+              <div style="margin-bottom: 24px; position: relative;">
+                <div style="position: absolute; left: -25px; top: 4px; width: 8px; height: 8px; background: #e0e0e0; border-radius: 50%; border: 4px solid #fff;"></div>
+                <div style="font-size: 14px; font-weight: 500;">Revisão aprovada</div>
+                <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">Cliente aprovou <strong style="color: var(--main);">ARQ_PLANTA_BAIXA_R02.pdf</strong></div>
+                <div style="font-size: 12px; color: #999; margin-top: 4px;">Ontem às 15:30</div>
+              </div>
+            </div>
+            <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #999; margin-bottom: 16px; margin-top: 32px;">Engenharia Estrutural</div>
+            <div style="border-left: 2px solid var(--border); padding-left: 20px;">
+              <div style="margin-bottom: 24px; position: relative;">
+                <div style="position: absolute; left: -25px; top: 4px; width: 8px; height: 8px; background: var(--main); border-radius: 50%; border: 4px solid #fff;"></div>
+                <div style="font-size: 14px; font-weight: 500;">Novo arquivo publicado</div>
+                <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">Carlos publicou <strong style="color: var(--main);">estrutural_rev02.dwg</strong></div>
+                <div style="font-size: 12px; color: #999; margin-top: 4px;">Há 2 horas</div>
+              </div>
+              <div style="margin-bottom: 24px; position: relative;">
+                <div style="position: absolute; left: -25px; top: 4px; width: 8px; height: 8px; background: #e0e0e0; border-radius: 50%; border: 4px solid #fff;"></div>
+                <div style="font-size: 14px; font-weight: 500;">Comentário adicionado</div>
+                <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">Felipe Rodrigues comentou em <strong style="color: var(--main);">memoria_calculo_v1.pdf</strong></div>
+                <div style="font-size: 12px; color: #999; margin-top: 4px;">Há 5 horas</div>
+              </div>
+            </div>
+            <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #999; margin-bottom: 16px; margin-top: 32px;">Interiores</div>
+            <div style="border-left: 2px solid var(--border); padding-left: 20px;">
+              <div style="margin-bottom: 24px; position: relative;">
+                <div style="position: absolute; left: -25px; top: 4px; width: 8px; height: 8px; background: var(--main); border-radius: 50%; border: 4px solid #fff;"></div>
+                <div style="font-size: 14px; font-weight: 500;">Novo arquivo publicado</div>
+                <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">Carla publicou <strong style="color: var(--main);">moodboard_v2.pdf</strong></div>
+                <div style="font-size: 12px; color: #999; margin-top: 4px;">Hoje às 09:12</div>
+              </div>
+            </div>
+          </div>
+        `);
+      } else if (hash === '#convites') {
+        openAccessModal();
+      } else if (hash === '#progresso') {
+        setMainTitle('Relatório de Progresso');
+        hideMainContent();
+        const headerBtns = document.querySelectorAll('.area-header button');
+        if (headerBtns[1]) headerBtns[1].style.display = 'none';
+        document.querySelector('.area-header').insertAdjacentHTML('afterend', `
+          <div style="margin-top: 20px;">
+            <div style="margin-bottom: 24px;">
+              <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px;"><span style="font-weight: 500;">Arquitetura (Estudo Preliminar)</span><span style="color: var(--muted);">100%</span></div>
+              <div style="height: 8px; background: #f4f4f4; border-radius: 4px; overflow: hidden;"><div style="width: 100%; height: 100%; background: #16a34a;"></div></div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--main); margin-top: 8px; cursor: pointer; text-decoration: underline;">Ver detalhes +</div>
+            </div>
+            <div style="margin-bottom: 24px;">
+              <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px;"><span style="font-weight: 500;">Estrutural (Projeto Executivo)</span><span style="color: var(--muted);">60%</span></div>
+              <div style="height: 8px; background: #f4f4f4; border-radius: 4px; overflow: hidden;"><div style="width: 60%; height: 100%; background: #2563eb;"></div></div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--main); margin-top: 8px; cursor: pointer; text-decoration: underline;">Ver detalhes +</div>
+            </div>
+            <div style="margin-bottom: 24px;">
+              <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px;"><span style="font-weight: 500;">Aprovação Prefeitura</span><span style="color: var(--muted);">Pendente</span></div>
+              <div style="height: 8px; background: #f4f4f4; border-radius: 4px; overflow: hidden;"><div style="width: 10%; height: 100%; background: #d97706;"></div></div>
+              <div style="font-size: 12px; font-weight: 600; color: var(--main); margin-top: 8px; cursor: pointer; text-decoration: underline;">Ver detalhes +</div>
+            </div>
+          </div>
+        `);
+      } else if (hash === '#nuvem') {
+        setMainTitle('Arquivos');
+        hideMainContent();
+        document.querySelector('.area-header button').parentElement.style.display = 'none';
+        document.querySelector('.area-header').insertAdjacentHTML('afterend', `
+          <div style="margin-top: 20px;">
+            <div style="position: relative; margin-bottom: 30px;">
+              <input type="text" placeholder="Busque por nome, data ou arquivo..." style="width: 100%; padding: 14px 16px 14px 40px; border-radius: 8px; border: 1px solid var(--border); font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none; background:#fff;" value="planta">
+              <svg style="position: absolute; left: 14px; top: 15px; color: #aaa;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; background: #fff;">
+              <div style="font-size: 14px; font-weight: 500; flex:1;">ARQ_PLANTA_BAIXA_R02.dwg</div>
+              <div style="font-size: 12px; color: var(--muted);">Arquitetura • 12 Out</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; background: #fff;">
+              <div style="font-size: 14px; font-weight: 500; flex:1;">EST_PLANTA_BAIXA_COMPAT_R01.rvt</div>
+              <div style="font-size: 12px; color: var(--muted);">Estrutural • 15 Out</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; background: #fff;">
+              <div style="font-size: 14px; font-weight: 500; flex:1;">INT_MOODBOARD_V3.pdf</div>
+              <div style="font-size: 12px; color: var(--muted);">Interiores • 20 Out</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; background: #fff;">
+              <div style="font-size: 14px; font-weight: 500; flex:1;">HID_PROJETO_EXECUTIVO_R00.dwg</div>
+              <div style="font-size: 12px; color: var(--muted);">Instalações • 22 Out</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; background: #fff;">
+              <div style="font-size: 14px; font-weight: 500; flex:1;">EST_MEMORIA_CALCULO_FINAL.pdf</div>
+              <div style="font-size: 12px; color: var(--muted);">Engenharia • 25 Out</div>
+            </div>
+          </div>
+        `);
+      } else if (hash === '#reuniao') {
+        setMainTitle('Residência Mourato Coelho');
+        hideMainContent();
+        document.querySelector('.area-header').insertAdjacentHTML('afterend', `
+          <div style="max-width: 680px; margin: 32px auto 0 auto;">
+            <div style="padding: 36px 40px; background: #fff; border: 1px solid var(--border); border-radius: 14px;">
+              <div style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 500; margin-bottom: 28px;">Agendamento de Nova Reunião</div>
+
+              <!-- Participantes -->
+              <div style="padding: 24px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 24px;">
+                <div style="font-size: 0.95rem; font-weight: 500; margin-bottom: 18px;">Quem você quer que participe?</div>
+                <div style="display: flex; flex-direction: column; gap: 14px;">
+                  <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                    <span style="font-size: 0.9rem;">Studio Monolito</span>
+                    <input type="checkbox" style="width: 16px; height: 16px; accent-color: #111; cursor: pointer;">
+                  </label>
+                  <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                    <span style="font-size: 0.9rem;">Forma & Alma</span>
+                    <input type="checkbox" style="width: 16px; height: 16px; accent-color: #111; cursor: pointer;">
+                  </label>
+                  <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                    <span style="font-size: 0.9rem;">Tech Engenharia</span>
+                    <input type="checkbox" style="width: 16px; height: 16px; accent-color: #111; cursor: pointer;">
+                  </label>
+                  <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                    <span style="font-size: 0.9rem;">Strut Cálculos</span>
+                    <input type="checkbox" style="width: 16px; height: 16px; accent-color: #111; cursor: pointer;">
+                  </label>
+                  <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                    <span style="font-size: 0.9rem;">Prefeitura SP</span>
+                    <input type="checkbox" style="width: 16px; height: 16px; accent-color: #111; cursor: pointer;">
+                  </label>
+                </div>
+              </div>
+
+              <!-- Link / Calendário -->
+              <div style="padding: 24px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+                  <div style="font-size: 0.95rem; font-weight: 500;">Adicionar Link ou Calendário</div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.82rem; color: var(--muted);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      15/02/2026
+                    </div>
+                    <span style="font-size: 0.82rem; color: var(--muted);">-</span>
+                    <div style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.82rem; color: var(--muted);">12:00</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                  <button style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; transition: all 0.15s;" onmouseenter="this.style.borderColor='#111'" onmouseleave="this.style.borderColor='var(--border)'">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/calendar_2020q4_48dp.png" width="20" height="20" alt="Google Calendar" style="border-radius: 2px;">
+                    Adicionar ao Google Agenda
+                  </button>
+                  <button style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; transition: all 0.15s;" onmouseenter="this.style.borderColor='#111'" onmouseleave="this.style.borderColor='var(--border)'">
+                    <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#2D8CFF"/><path d="M8 9.5h3v5H8zM13 9.5h3v5h-3z" fill="#fff"/></svg>
+                    Gerar Link Zoom
+                  </button>
+                  <button style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; transition: all 0.15s;" onmouseenter="this.style.borderColor='#111'" onmouseleave="this.style.borderColor='var(--border)'">
+                    <svg width="18" height="18" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="4" fill="#00897B"/><polygon points="10,8 16,12 10,16" fill="#fff"/></svg>
+                    Gerar Link Meet
+                  </button>
+                </div>
+              </div>
+
+              <!-- Registro de atas -->
+              <div style="text-align: center; padding: 16px; border: 1px solid var(--border); border-radius: 10px; color: var(--muted); font-size: 0.88rem;">registro de atas</div>
+            </div>
+          </div>
+        `);
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tijolo — Gestão de Projetos AEC</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <div class="nav-logo" onclick="showPage('landing')">tijolo</div>
+    <div class="nav-links">
+      <a href="#o-que-somos">O que somos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#precos">Preços</a>
+    </div>
+  </nav>
+  <!-- PAGE: LANDING -->
+  <div class="page active" id="page-landing">
+    <div class="landing">
+
+      <!-- HERO -->
+      <section class="hero"
+        style="text-align: center; min-height: 100vh; padding: 40px 20px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+
+        <div
+          style="margin-bottom: -16px; display: flex; justify-content: center; align-items: center; position: relative; z-index: 10; background: radial-gradient(circle, #ffffff 45%, rgba(255,255,255,0) 75%); width: 240px; height: 240px; border-radius: 50%;">
+          <svg width="220" height="220" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="0.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="9.5" width="10" height="4" rx="1" fill="#fff"></rect>
+            <rect x="1.5" y="14.5" width="10" height="4" rx="1" fill="#fff"></rect>
+            <rect x="12.5" y="14.5" width="10" height="4" rx="1" fill="#fff"></rect>
+          </svg>
+        </div>
+
+        <h1 class="hero-title" data-aos="fade-up"
+          style="margin: 0 auto; text-align: center; max-width: 900px; font-size: 4.5rem; font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; position: relative; z-index: 10;">
+          Todos os profissionais<br>do seu projeto,<br>em um <em style="font-style: italic;">único lugar.</em>
+        </h1>
+
+        <div data-aos="fade-up" data-aos-delay="200"
+          style="margin: 32px auto 48px auto; text-align: center; color: var(--muted); font-size: 1.1rem; line-height: 1.8; letter-spacing: 0.01em; font-style: italic; position: relative; z-index: 10;">
+          <p>Chega de <strong>retrabalho</strong></p>
+          <p>Separe seu projeto por <strong>disciplinas</strong></p>
+          <p><strong>Rastreabilidade</strong> na ponta dos seus dedos</p>
+        </div>
+
+        <!-- WAITLIST FORM -->
+        <div id="waitlist-section" data-aos="fade-up" data-aos-delay="400" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 24px; position: relative; z-index: 10; width: 100%;">
+          <form id="hero-waitlist-form" style="display: flex; gap: 8px; width: 100%; max-width: 380px;">
+            <input type="email" id="waitlist-email" placeholder="Seu melhor e-mail" required
+              style="flex: 1; padding: 14px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: 6px; outline: none; background: var(--white); color: var(--ink); transition: border-color 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.02);"
+              onfocus="this.style.borderColor='var(--mid)'" onblur="this.style.borderColor='var(--border)'">
+            <button type="submit" id="waitlist-btn" class="btn btn-dark"
+              style="padding: 14px 24px; font-size: 14px; border-radius: 6px; font-weight: 500; font-family: 'DM Sans', sans-serif; border: 1px solid #000; cursor: pointer; transition: all 0.2s; white-space: nowrap;">
+              Solicitar Acesso
+            </button>
+          </form>
+          <div id="waitlist-message" style="display: none; font-size: 14px; color: #10B981; font-weight: 500; margin-top: 8px;">
+            Solicitação enviada. Verifique seu e-mail.
+          </div>
+        </div>
+
+        <div
+          style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 24px; position: relative; z-index: 10;">
+          <a href="#waitlist-section" class="btn btn-dark" onclick="scrollToWaitlist(event)"
+            style="padding: 16px 32px; font-size: 1rem; border-radius: 8px; font-weight: 500; font-family: 'DM Sans', sans-serif; text-decoration: none; color: #fff; background: #000; transition: all 0.2s; border: none; cursor: pointer; display: inline-block;"
+            onmouseenter="this.style.background='#333'" onmouseleave="this.style.background='#000'">Começar grátis →</a>
+          <a href="#waitlist-section" class="btn btn-ghost" onclick="scrollToWaitlist(event)"
+            style="background: transparent; border: none; color: var(--mid); font-size: 14px; text-decoration: underline; cursor: pointer; padding: 16px 16px;">Ver a plataforma</a>
+        </div>
+
+        <div style="font-size: 0.85rem; color: #ccc; font-weight: 500;">
+          Gratuito para começar - Sem cartão de crédito
+        </div>
+
+        <!-- DOWN ARROW -->
+        <div class="scroll-down-arrow"
+          onclick="document.getElementById('o-que-somos').scrollIntoView({ behavior: 'smooth' })">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M19 12l-7 7-7-7" />
+          </svg>
+        </div>
+      </section>
+
+      <!-- O QUE SOMOS -->
+      <section class="section" id="o-que-somos"
+        style="padding: 100px 48px; max-width: 1400px; margin: 0 auto; text-align: center;">
+        <div class="section-eyebrow">O que somos</div>
+        <h2 class="section-title">Muito além de um drive,<br>feito
+          para <em>arquitetos
+            e engenheiros.</em></h2>
+        <p class="section-sub" style="margin: 0 auto 48px auto; max-width: 700px;">Veja como a plataforma simplifica,
+          centraliza e rastreia toda a comunicação do seu projeto.</p>
+
+        <!-- SLIDESHOW EMBUTIDO -->
+        <div class="slideshow-wrapper" style="max-width: 1000px; margin: 0 auto; position: relative;">
+          <!-- Label eyebrow animada -->
+          <div id="slideshow-label" style="text-align: center; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--light); margin-bottom: 24px; transition: opacity 0.3s;">VISÃO GERAL DO PROJETO</div>
+          
+          <div style="position: relative; display: flex; align-items: center;">
+            <button id="slide-prev" onclick="prevSlide()" class="slide-arrow prev-arrow" style="position: absolute; left: -24px; z-index: 10;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            
+            <div class="slideshow-screen" style="width: 100%; height: 560px; background: white; border-radius: 12px; box-shadow: 0 12px 48px rgba(0,0,0,0.08); border: 1px solid var(--border); overflow: hidden; position: relative;">
+              <!-- Container de transição -->
+              <div id="slideshow-content" class="slide-enter" style="width: 100%; height: 100%; position: relative;"></div>
+            </div>
+            
+            <button id="slide-next" onclick="nextSlide()" class="slide-arrow next-arrow" style="position: absolute; right: -24px; z-index: 10;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+          </div>
+          
+          <div id="slideshow-dots" style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 32px; height: 10px;">
+            <!-- dots -->
+          </div>
+        </div>
+      </section>
+
+      <!-- COMO FUNCIONA (Integrado com a Roda) -->
+      <section class="section" id="como-funciona" style="padding: 100px 48px; max-width: 1400px;">
+
+        <div class="how-it-works-layout">
+          <!-- Lado Esquerdo: Roda (Sticky) -->
+          <div class="how-sticky-side">
+            <div style="text-align: center;">
+              <div class="section-eyebrow">Como funciona</div>
+              <h2 class="section-title">Da criação do projeto<br>à <em>entrega final.</em></h2>
+              <p class="section-sub" style="margin: 0 auto;">O escritório cria o projeto uma vez e convida cada
+                profissional pelo seu perfil. A partir daí, cada um trabalha na sua área — sem interferir nos outros.
+              </p>
+            </div>
+
+            <div class="wheel-container scale-wheel">
+              <div class="wheel-path"></div>
+              <div class="wheel-orbit" style="--i:0">
+                <div class="wheel-node">Arquiteto</div>
+              </div>
+              <div class="wheel-orbit" style="--i:1">
+                <div class="wheel-node">Arquiteto de<br>Interiores</div>
+              </div>
+              <div class="wheel-orbit" style="--i:2">
+                <div class="wheel-node">Complementar</div>
+              </div>
+              <div class="wheel-orbit" style="--i:3">
+                <div class="wheel-node">Aprovação</div>
+              </div>
+              <div class="wheel-orbit" style="--i:4">
+                <div class="wheel-node">Apoio<br>Técnico</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lado Direito: Passos (Scroll) -->
+          <div class="how-scroll-side">
+            <div class="step-card">
+              <div class="step-num">01</div>
+              <div class="step-title" style="text-transform: uppercase;">Início do projeto</div>
+              <div class="step-desc">Escritório cria o projeto: Nome, cliente, endereço, tipo de obra e datas. Em dois
+                minutos o projeto está configurado.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">02</div>
+              <div class="step-title" style="text-transform: uppercase;">Convites</div>
+              <div class="step-desc">Você convida os profissionais: Um link por perfil — complementar, aprovação, apoio.
+                Cada um entra com sua conta e acessa só o que é de sua responsabilidade no projeto.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">03</div>
+              <div class="step-title" style="text-transform: uppercase;">Integração</div>
+              <div class="step-desc">O estrutural publica a revisão. A plataforma notifica o arquiteto. Tudo com data,
+                autor e arquivo vinculado. Cada um trabalha na sua área.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">04</div>
+              <div class="step-title" style="text-transform: uppercase;">Rastreabilidade</div>
+              <div class="step-desc">Quem aprovou o quê, quando, com qual arquivo. Nenhuma informação é perdida.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FUNCIONALIDADES -->
+      <section class="section" id="funcionalidades">
+        <div class="section-eyebrow">Funcionalidades</div>
+        <h2 class="section-title">Tudo que o projeto precisa,<br><em>nada que ele não precisa.</em></h2>
+        <p class="section-sub">Sem complexidade desnecessária. A plataforma é construída para o fluxo real de um
+          escritório de arquitetura.</p>
+
+        <div class="features-grid">
+          <div class="feature-cell" data-aos="fade-up" data-aos-delay="0">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg></div>
+            <div class="feature-title">Nuvem de arquivos por disciplina</div>
+            <div class="feature-desc">DWG, RVT, PDF, IFC — organizados por área. Cada complementar publica na sua pasta.
+              O arquiteto vê tudo.</div>
+          </div>
+          <div class="feature-cell" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg></div>
+            <div class="feature-title">Notificações sem WhatsApp</div>
+            <div class="feature-desc">"Carlos publicou estrutural_rev02.dwg." Você recebe, clica, baixa. Sem ligação,
+              sem mensagem perdida.</div>
+          </div>
+          <div class="feature-cell" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4">
+                </path>
+              </svg></div>
+            <div class="feature-title">Acesso por convite com Google</div>
+            <div class="feature-desc">O profissional entra pelo link, loga com a conta Google e já está dentro do
+              projeto com o perfil certo.</div>
+          </div>
+          <div class="feature-cell" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              </svg></div>
+            <div class="feature-title">Histórico de atividades</div>
+            <div class="feature-desc">Registro completo e cronológico de cada ação em cada projeto. Quem fez, quando,
+              qual arquivo — para sempre.</div>
+          </div>
+          <div class="feature-cell" data-aos="fade-up" data-aos-delay="400">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg></div>
+            <div class="feature-title">Aprovações formais</div>
+            <div class="feature-desc">O cliente aprova etapas dentro da plataforma. Chega de "aprovei pelo zap" sem
+              registro.</div>
+          </div>
+          <div class="feature-cell" data-aos="fade-up" data-aos-delay="500">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg></div>
+            <div class="feature-title">Progresso do projeto</div>
+            <div class="feature-desc">Barra de progresso por etapa, visível para todos os membros. Transparência para o
+              cliente, organização para o escritório.</div>
+          </div>
+          <div class="feature-cell" data-aos="fade-up" data-aos-delay="600">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg></div>
+            <div class="feature-title">Arquivos pesquisável</div>
+            <div class="feature-desc">Perdeu um arquivo? Quer confirmar uma informação? Busque por nome, data ou
+              profissional e encontre qualquer documento do projeto em segundos.</div>
+          </div>
+          <div class="feature-cell" data-aos="fade-up" data-aos-delay="700">
+            <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg></div>
+            <div class="feature-title">Acesso do cliente</div>
+            <div class="feature-desc">O cliente acompanha o andamento do projeto em tempo real, sem precisar ligar. Transparência que gera confiança.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROVAS SOCIAIS -->
+      <section class="section" id="provas-sociais"
+        style="background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%; padding: 100px 48px;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+          <h2 class="section-title" style="margin-bottom: 64px;">O que dizem os escritórios</h2>
+
+          <div class="stats-grid"
+            style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 80px;">
+            <div>
+              <div style="font-size: 40px; font-weight: 300; font-family: 'Outfit', sans-serif; color: var(--ink);">40+
+              </div>
+              <div style="font-size: 14px; color: var(--mid); margin-top: 8px;">Projetos gerenciados</div>
+            </div>
+            <div>
+              <div style="font-size: 40px; font-weight: 300; font-family: 'Outfit', sans-serif; color: var(--ink);">8
+              </div>
+              <div style="font-size: 14px; color: var(--mid); margin-top: 8px;">Cidades no Brasil</div>
+            </div>
+            <div>
+              <div style="font-size: 40px; font-weight: 300; font-family: 'Outfit', sans-serif; color: var(--ink);">98%
+              </div>
+              <div style="font-size: 14px; color: var(--mid); margin-top: 8px;">Redução de e-mails</div>
+            </div>
+            <div>
+              <div style="font-size: 40px; font-weight: 300; font-family: 'Outfit', sans-serif; color: var(--ink);">
+                4.9<span style="font-size: 24px; color: #f59e0b; vertical-align: middle; margin-left: 4px;">★</span>
+              </div>
+              <div style="font-size: 14px; color: var(--mid); margin-top: 8px;">Avaliação média</div>
+            </div>
+          </div>
+
+          <div class="testimonials-grid"
+            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left;">
+            <div class="testimonial-card"
+              style="background: white; padding: 32px; border: 1px solid var(--border); border-radius: 16px;">
+              <p style="font-size: 15px; color: var(--graphite); line-height: 1.6; margin-bottom: 24px;">"A plataforma
+                mudou a forma como lidamos com os complementares. Chega de buscar arquivos no WhatsApp ou em e-mails
+                perdidos. Está tudo na ferramenta."</p>
+              <div style="font-weight: 600; font-size: 14px; color: var(--ink);">Mariana Costa</div>
+              <div style="font-size: 13px; color: var(--mid);">Arquiteta Titular</div>
+            </div>
+            <div class="testimonial-card"
+              style="background: white; padding: 32px; border: 1px solid var(--border); border-radius: 16px;">
+              <p style="font-size: 15px; color: var(--graphite); line-height: 1.6; margin-bottom: 24px;">"Organizar os
+                arquivos por disciplina e garantir que o cliente aprove sempre a última versão nos poupou horas de
+                retrabalho. O histórico salva vidas."</p>
+              <div style="font-weight: 600; font-size: 14px; color: var(--ink);">Felipe Rodrigues</div>
+              <div style="font-size: 13px; color: var(--mid);">Rodrigues Engenharia</div>
+            </div>
+            <div class="testimonial-card"
+              style="background: white; padding: 32px; border: 1px solid var(--border); border-radius: 16px;">
+              <p style="font-size: 15px; color: var(--graphite); line-height: 1.6; margin-bottom: 24px;">"Simples,
+                intuitivo e muito focado em arquitetura. Não tem o peso de sistemas genéricos de gestão. Ele entrega
+                exatamente o que a gente precisa e nada mais."</p>
+              <div style="font-weight: 600; font-size: 14px; color: var(--ink);">Juliana Mendes</div>
+              <div style="font-size: 13px; color: var(--mid);">Mendes & Associados</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PREÇOS -->
+      <section class="section" id="precos">
+        <div class="section-eyebrow">Planos</div>
+        <h2 class="section-title">Simples e <em>previsível.</em></h2>
+        <p class="section-sub">O escritório paga. Complementares, clientes e fornecedores acessam sempre de graça.</p>
+
+        <div class="pricing-grid">
+          <div class="plan-card">
+            <div class="plan-name">Starter</div>
+            <div class="plan-price">Grátis</div>
+            <div class="plan-desc">Para conhecer a plataforma e projetos pequenos.</div>
+            <ul class="plan-features">
+              <li>2 projetos ativos</li>
+              <li>5 GB de armazenamento</li>
+              <li>Convite ilimitado de externos</li>
+              <li>Histórico de 30 dias</li>
+            </ul>
+            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)" style="display: block; text-decoration: none;">Começar grátis</a>
+          </div>
+
+          <div class="plan-card featured">
+            <div class="plan-badge">Mais escolhido</div>
+            <div class="plan-name">Pro</div>
+            <div class="plan-price"><sup>R$</sup>149<sub>/mês</sub></div>
+            <div class="plan-desc">Para escritórios que usam no dia a dia.</div>
+            <ul class="plan-features">
+              <li>Projetos ilimitados</li>
+              <li>50 GB de armazenamento</li>
+              <li>Notificações avançadas</li>
+              <li>Histórico completo</li>
+              <li>Aprovações digitais</li>
+            </ul>
+            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)" style="display: block; text-decoration: none;">Assinar Pro</a>
+          </div>
+
+          <div class="plan-card">
+            <div class="plan-name">Studio</div>
+            <div class="plan-price"><sup>R$</sup>349<sub>/mês</sub></div>
+            <div class="plan-desc">Para escritórios com múltiplos arquitetos internos.</div>
+            <ul class="plan-features">
+              <li>Tudo do Pro</li>
+              <li>200 GB de armazenamento</li>
+              <li>Relatórios PDF</li>
+              <li>Suporte prioritário</li>
+            </ul>
+            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)" style="display: block; text-decoration: none;">Assinar Studio</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA FINAL -->
+      <section class="cta-section">
+        <h2 class="section-title">Organize seu próximo<br><em>projeto agora.</em></h2>
+        <p class="section-sub">Grátis para começar. Sem cartão de crédito. Sem configuração complicada.</p>
+        <a href="#waitlist-section" class="btn btn-dark" onclick="scrollToWaitlist(event)" style="text-decoration: none; display: inline-block;">Criar minha conta →</a>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <div class="footer-logo">tijolo</div>
+        <div class="footer-links" style="display: flex; gap: 24px; font-size: 13px;">
+          <a href="#" style="color: var(--mid); text-decoration: none;">Termos de Uso</a>
+          <a href="#" style="color: var(--mid); text-decoration: none;">Política de Privacidade</a>
+        </div>
+        <div class="footer-copy">© 2026 · tijolo · São Paulo, Brasil</div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- PAGE: LOGIN -->
+  <div class="page" id="page-login">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-logo" onclick="showPage('landing')">tijolo</div>
+        <div class="auth-title">Entrar na sua conta</div>
+        <div class="auth-sub">Bem-vindo de volta</div>
+
+        <button class="auth-google-btn" onclick="showPage('app')">
+          <svg width="18" height="18" viewBox="0 0 18 18">
+            <path fill="#4285F4"
+              d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" />
+            <path fill="#34A853"
+              d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" />
+            <path fill="#FBBC05"
+              d="M3.964 10.706A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" />
+            <path fill="#EA4335"
+              d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.962L3.964 6.294C4.672 4.167 6.656 3.58 9 3.58z" />
+          </svg>
+          Continuar com Google
+        </button>
+
+        <div class="auth-divider"><span>ou</span></div>
+
+        <div class="auth-field">
+          <label class="auth-label">E-mail</label>
+          <input class="auth-input" type="email" placeholder="seu@email.com.br">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" style="display:flex;justify-content:space-between">
+            Senha
+            <a class="auth-link" onclick="showPage('forgot')">Esqueci minha senha</a>
+          </label>
+          <input class="auth-input" type="password" placeholder="••••••••">
+        </div>
+
+        <button class="auth-submit" onclick="showPage('app')">Entrar →</button>
+
+        <div class="auth-footer">Não tem conta? <a class="auth-link" onclick="showPage('signup')">Criar conta grátis</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: SIGNUP -->
+  <div class="page" id="page-signup">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-logo" onclick="showPage('landing')">tijolo</div>
+        <div class="auth-title">Criar sua conta</div>
+        <div class="auth-sub">Grátis para começar. Sem cartão de crédito.</div>
+
+        <button class="auth-google-btn" onclick="showPage('app')">
+          <svg width="18" height="18" viewBox="0 0 18 18">
+            <path fill="#4285F4"
+              d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" />
+            <path fill="#34A853"
+              d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" />
+            <path fill="#FBBC05"
+              d="M3.964 10.706A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" />
+            <path fill="#EA4335"
+              d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.962L3.964 6.294C4.672 4.167 6.656 3.58 9 3.58z" />
+          </svg>
+          Continuar com Google
+        </button>
+
+        <div class="auth-divider"><span>ou</span></div>
+
+        <div class="auth-field">
+          <label class="auth-label">Nome completo</label>
+          <input class="auth-input" type="text" placeholder="Seu nome">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">E-mail profissional</label>
+          <input class="auth-input" type="email" placeholder="voce@escritorio.com.br">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">Celular <span style="color: var(--light); font-weight: normal;">(Avisos
+              importantes)</span></label>
+          <input class="auth-input" type="tel" placeholder="(11) 90000-0000">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">Senha</label>
+          <input class="auth-input" type="password" placeholder="Crie uma senha">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">Nome do escritório</label>
+          <input class="auth-input" type="text" placeholder="Nome do escritório">
+        </div>
+
+        <div class="auth-field"
+          style="display: flex; align-items: flex-start; gap: 10px; margin-top: 20px; margin-bottom: 24px;">
+          <input type="checkbox" id="lgpd-consent" style="margin-top: 3px;">
+          <label for="lgpd-consent" style="font-size: 12px; color: var(--mid); line-height: 1.5;">
+            Concordo com os <a href="#" style="color: var(--ink); text-decoration: underline;">Termos de Uso</a> e <a
+              href="#" style="color: var(--ink); text-decoration: underline;">Política de Privacidade</a> e consinto com
+            o tratamento dos meus dados.
+          </label>
+        </div>
+
+        <button class="auth-submit" onclick="showPage('verify-email')">Criar conta →</button>
+
+        <div class="auth-footer">Já tem conta? <a class="auth-link" onclick="showPage('login')">Entrar</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: VERIFICAR E-MAIL -->
+  <div class="page" id="page-verify-email">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-logo" onclick="showPage('landing')">tijolo</div>
+        <div class="auth-title">Verifique seu e-mail</div>
+        <div class="auth-sub">Enviamos um link de verificação para o seu e-mail.</div>
+        <p class="auth-hint" style="margin-top:16px">
+          Assim que confirmar, você poderá acessar a plataforma.
+        </p>
+        <button class="auth-submit" onclick="showPage('login')">Ir para login</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: ESQUECI SENHA -->
+  <div class="page" id="page-forgot">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-logo" onclick="showPage('landing')">tijolo</div>
+        <div class="auth-title">Esqueci minha senha</div>
+        <div class="auth-sub">Enviaremos um link para redefinir.</div>
+
+        <div class="auth-field">
+          <label class="auth-label">E-mail</label>
+          <input class="auth-input" type="email" placeholder="seu@email">
+        </div>
+        <button class="auth-submit" onclick="showPage('forgot-sent')">Enviar link →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: LINK ENVIADO -->
+  <div class="page" id="page-forgot-sent">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-logo" onclick="showPage('landing')">tijolo</div>
+        <div class="auth-title">Verifique seu e-mail</div>
+        <div class="auth-sub">Enviamos um link para redefinir sua senha.</div>
+        <button class="auth-submit" onclick="showPage('login')">Voltar para login</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: RESET SENHA -->
+  <div class="page" id="page-reset">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-logo" onclick="showPage('landing')">tijolo<span>.com</span></div>
+        <div class="auth-title">Redefinir senha</div>
+        <div class="auth-sub">Crie uma nova senha para a sua conta.</div>
+
+        <div class="auth-field">
+          <label class="auth-label">Nova senha</label>
+          <input class="auth-input" type="password" placeholder="Nova senha">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">Confirmar senha</label>
+          <input class="auth-input" type="password" placeholder="Repita a senha">
+        </div>
+        <button class="auth-submit" onclick="showPage('login')">Salvar nova senha →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: APP (DEMO SIMPLIFICADA) -->
+  <div class="page" id="page-app">
+    <div class="app-layout">
+      <aside class="app-sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Navegação</div>
+          <div class="sidebar-item active" onclick="showAppSection('leads', this)">
+            <span class="si-icon">👥</span>
+            <span>Leads</span>
+          </div>
+          <div class="sidebar-item" onclick="showAppSection('project', this)">
+            <span class="si-icon">📁</span>
+            <span>Projeto</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="app-main">
+        <header class="app-topbar">
+          <div class="breadcrumb">
+            <span>Projetos</span>
+            <span class="sep">›</span>
+            <span class="current">Residência Almeida</span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="btn btn-ghost" style="font-size:12px;padding:7px 14px" onclick="showPage('landing')">← Voltar
+              ao site</button>
+          </div>
+        </header>
+
+        <section class="app-content" id="section-leads">
+          <div class="proj-header">
+            <div class="proj-header-left">
+              <div class="proj-label">Visão geral</div>
+              <div class="proj-name">Pipeline de leads</div>
+              <div class="proj-client-info">Exemplo simplificado da plataforma em uso.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-content" id="section-project" style="display:none">
+          <div class="proj-header">
+            <div class="proj-header-left">
+              <div class="proj-label">Projeto</div>
+              <div class="proj-name">Residência Almeida</div>
+              <div class="proj-client-info">Rua Exemplo, 123 · São Paulo</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    /* ── Smooth scroll to waitlist + subtle focus (Emil Kowalski style) ── */
+    function scrollToWaitlist(e) {
+      e.preventDefault();
+      const section = document.getElementById('waitlist-section');
+      if (!section) return;
+
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      const emailInput = document.getElementById('waitlist-email');
+      if (!emailInput) return;
+
+      /* Wait for scroll to settle, then draw attention with a refined glow */
+      setTimeout(() => {
+        emailInput.focus({ preventScroll: true });
+        emailInput.style.transition = 'border-color 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s cubic-bezier(0.23,1,0.32,1)';
+        emailInput.style.borderColor = '#111';
+        emailInput.style.boxShadow = '0 0 0 3px rgba(17,17,17,0.08), 0 1px 2px rgba(0,0,0,0.04)';
+
+        /* Fade glow out gracefully after 1.8s */
+        setTimeout(() => {
+          emailInput.style.borderColor = 'var(--border)';
+          emailInput.style.boxShadow = '0 1px 2px rgba(0,0,0,0.02)';
+        }, 1800);
+      }, 600);
+    }
+  </script>
+</body>
+
+</html>
