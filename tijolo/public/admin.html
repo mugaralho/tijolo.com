@@ -78,7 +78,11 @@
             }
 
             try {
-                const response = await fetch(`/api/admin/waitlist?password=${encodeURIComponent(password)}`);
+                const response = await fetch(`/api/admin/waitlist`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
                 const data = await response.json();
 
                 if (response.ok && data.success) {

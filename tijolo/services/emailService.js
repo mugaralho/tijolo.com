@@ -4,7 +4,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const sendConfirmationEmail = async (email) => {
   try {
     const data = await resend.emails.send({
-      from: 'Tijolo <contato@mail.tijolo.app.br>', // Seu domínio verificado
+      from: 'Tijolo <contato@mail.tijolo.app.br>', // Production domain verified via Resend
       to: email,
       subject: 'Solicitação de Acesso | Tijolo',
       html: `

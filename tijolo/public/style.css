@@ -81,6 +81,19 @@ nav {
   gap: 48px;
 }
 
+.nav-social-icon {
+  display: flex;
+  align-items: center;
+  color: var(--mid);
+  transition: all 0.2s;
+  margin-left: -24px; /* Move it closer to the last text link */
+}
+
+.nav-social-icon:hover {
+  color: #000;
+  transform: translateY(-2px);
+}
+
 .nav-links a {
   font-size: 16px;
   color: var(--mid);

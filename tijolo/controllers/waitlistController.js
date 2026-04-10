@@ -7,17 +7,17 @@ const getWaitlistCount = (req, res) => {
       console.error(err.message);
       return res.status(500).json({ success: false, message: 'Erro ao buscar contagem' });
     }
-    const baseCount = 0;
+    const baseCount = 8; // Starting count as requested
     res.json({ success: true, count: baseCount + row.count });
   });
 };
 
 const getAdminWaitlist = (req, res) => {
-  const { password } = req.query;
+  const password = req.body.password || req.query.password;
   const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'tijolo123';
 
-  if (password !== ADMIN_PASSWORD) {
-    return res.status(401).json({ success: false, message: 'Senha incorreta.' });
+  if (!password || password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, message: 'Acesso negado. Senha incorreta.' });
   }
 
   db.all('SELECT email, created_at FROM waitlist ORDER BY created_at DESC', [], (err, rows) => {
@@ -32,9 +32,10 @@ const getAdminWaitlist = (req, res) => {
 const addToWaitlist = (req, res) => {
   const { name = 'Arquiteto', email } = req.body;
 
-  // Validação simples de e-mail
-  if (!email || !email.includes('@')) {
-    return res.status(400).json({ success: false, message: 'E-mail inválido.' });
+  // Validação aprimorada de e-mail
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    return res.status(400).json({ success: false, message: 'Por favor, insira um e-mail válido.' });
   }
 
   const query = `INSERT INTO waitlist (name, email) VALUES (?, ?)`;

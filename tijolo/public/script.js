@@ -101,8 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function startAutoplay() {
     if (userInteracted) return;
+    stopAutoplay(); // Ensure no duplicates
     
     autoplayInterval = setInterval(() => {
+      // Only advance if page is visible
+      if (document.hidden) return;
+      
       if (currentSlideIndex < galleryScreens.length - 1) {
         currentSlideIndex++;
         renderSlide(1);
