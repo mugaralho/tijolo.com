@@ -54,7 +54,8 @@ nav {
   display: flex;
   align-items: center;
   padding: 0 48px;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 80px;
 }
 
 .nav-logo {
@@ -75,9 +76,6 @@ nav {
 }
 
 .nav-links {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 48px;
