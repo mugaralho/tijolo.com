@@ -20,8 +20,8 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html, body {
+  overflow-x: hidden;
 }
 
 body {
@@ -1058,4 +1058,105 @@ footer {
   opacity: 0;
   transform: translateX(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ─── RESPONSIVIDADE (PHONE VERSION) ─── */
+@media (max-width: 768px) {
+  /* Navigation */
+  nav {
+    flex-direction: column;
+    padding: 16px 20px;
+    gap: 16px;
+    height: auto;
+    align-items: center;
+  }
+
+  .nav-links {
+    gap: 20px;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .nav-social-icon {
+    margin-left: 0;
+  }
+
+  /* Hero Section */
+  .landing {
+    padding: 140px 20px 80px;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+    line-height: 1.1;
+  }
+
+  #hero-waitlist-form {
+    flex-direction: column;
+    gap: 12px !important;
+  }
+
+  #hero-waitlist-form input {
+    width: 100%;
+  }
+
+  #hero-waitlist-form button {
+    width: 100%;
+  }
+
+  /* Section Spacing */
+  section {
+    padding: 60px 20px !important;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /* Grids to Single Column */
+  .feature-grid, 
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  /* Slideshow optimization */
+  .slideshow-container {
+    height: auto;
+    min-height: 300px;
+  }
+
+  /* Scale down iframe inside slideshow if necessary */
+  #slideshow-content iframe {
+    transform-origin: top center;
+  }
+
+  /* CTA Final */
+  .cta-section {
+    padding: 80px 20px !important;
+  }
+
+  /* Plan cards scaling */
+  .plan-card {
+    padding: 32px 24px;
+  }
+
+  .plan-price {
+    font-size: 40px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
 }
