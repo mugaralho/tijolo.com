@@ -1,0 +1,9 @@
+[build]
+  base = "tijolo"
+  publish = "public"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/waitlist"
+  to = "/.netlify/functions/waitlist"
+  status = 200
