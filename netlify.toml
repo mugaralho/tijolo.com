@@ -2,11 +2,14 @@
   base    = "tijolo"
   publish = "public"
 
+[functions]
+  directory = "../netlify/functions"
+
 [[redirects]]
   from   = "/api/waitlist"
   to     = "/.netlify/functions/waitlist"
   status = 200
 
-[functions]
-  directory = "../netlify/functions"
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
   
