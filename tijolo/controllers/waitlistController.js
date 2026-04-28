@@ -1,18 +1,21 @@
-const db = require('../config/db');
+const supabase = require('../config/db');
 const { sendConfirmationEmail } = require('../services/emailService');
 
-const getWaitlistCount = (req, res) => {
-  db.get('SELECT COUNT(*) as count FROM waitlist', [], (err, row) => {
-    if (err) {
-      console.error(err.message);
-      return res.status(500).json({ success: false, message: 'Erro ao buscar contagem' });
-    }
-    const baseCount = 8; // Starting count as requested
-    res.json({ success: true, count: baseCount + row.count });
-  });
+const getWaitlistCount = async (req, res) => {
+  const { count, error } = await supabase
+    .from('waitlist')
+    .select('*', { count: 'exact', head: true });
+
+  if (error) {
+    console.error('Supabase count error:', error.message);
+    return res.status(500).json({ success: false, message: 'Erro ao buscar contagem' });
+  }
+
+  const baseCount = 8; // Contagem base conforme solicitado
+  res.json({ success: true, count: baseCount + count });
 };
 
-const getAdminWaitlist = (req, res) => {
+const getAdminWaitlist = async (req, res) => {
   const password = req.body.password || req.query.password;
   const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'tijolo123';
 
@@ -20,63 +23,65 @@ const getAdminWaitlist = (req, res) => {
     return res.status(401).json({ success: false, message: 'Acesso negado. Senha incorreta.' });
   }
 
-  db.all('SELECT email, created_at FROM waitlist ORDER BY created_at DESC', [], (err, rows) => {
-    if (err) {
-      console.error(err.message);
-      return res.status(500).json({ success: false, message: 'Erro ao buscar waitlist' });
-    }
-    res.json({ success: true, users: rows });
-  });
+  const { data, error } = await supabase
+    .from('waitlist')
+    .select('email, created_at')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Supabase list error:', error.message);
+    return res.status(500).json({ success: false, message: 'Erro ao buscar waitlist' });
+  }
+
+  res.json({ success: true, users: data });
 };
 
-const addToWaitlist = (req, res) => {
+const addToWaitlist = async (req, res) => {
   const { name = 'Arquiteto', email } = req.body;
 
-  // Validação aprimorada de e-mail
+  // Validação de e-mail
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email || !emailRegex.test(email)) {
     return res.status(400).json({ success: false, message: 'Por favor, insira um e-mail válido.' });
   }
 
-  const query = `INSERT INTO waitlist (name, email) VALUES (?, ?)`;
-
-  // Limpamos espaços extras no e-mail e nome
-  const cleanEmail = email.trim();
+  // Normaliza: lowercase + trim evita duplicatas por capitalização
+  const cleanEmail = email.trim().toLowerCase();
   const cleanName = name.trim();
 
-  db.run(query, [cleanName, cleanEmail], async function (err) {
-    if (err) {
-      // Se o e-mail já existe no seu banco de dados
-      if (err.message.includes('UNIQUE constraint failed')) {
-        console.log(`E-mail já cadastrado: ${cleanEmail}`);
-        return res.status(200).json({ success: true, message: 'Email já registrado.' });
-      }
-      console.error('Erro no banco:', err.message);
-      return res.status(500).json({ success: false, message: 'Erro ao salvar.' });
+  const { error } = await supabase
+    .from('waitlist')
+    .insert({ name: cleanName, email: cleanEmail });
+
+  if (error) {
+    // Código 23505 = violação de UNIQUE constraint no PostgreSQL
+    if (error.code === '23505') {
+      console.log(`E-mail já cadastrado: ${cleanEmail}`);
+      return res.status(200).json({ success: true, message: 'Email já registrado.' });
     }
+    console.error('Supabase insert error:', error.message);
+    return res.status(500).json({ success: false, message: 'Erro ao salvar.' });
+  }
 
-    console.log(`Novo cadastro: ${cleanEmail}`);
+  console.log(`Novo cadastro: ${cleanEmail}`);
 
-    try {
-      // DISPARO DO E-MAIL: Aqui o "Gerente" dá a ordem para o Resend
-      const emailResult = await sendConfirmationEmail(cleanEmail);
-
-      if (!emailResult.success) {
-        console.error(`O e-mail não saiu para ${cleanEmail}, mas ele foi salvo no banco.`);
-      } else {
-        console.log(`E-mail de confirmação enviado com sucesso para: ${cleanEmail}`);
-      }
-    } catch (e) {
-      console.error('Erro inesperado ao tentar enviar e-mail:', e);
+  // Envia e-mail de confirmação (falha silenciosa — dado já está salvo)
+  try {
+    const emailResult = await sendConfirmationEmail(cleanEmail);
+    if (!emailResult.success) {
+      console.error(`E-mail não enviado para ${cleanEmail}, mas cadastro foi salvo.`);
+    } else {
+      console.log(`E-mail de confirmação enviado para: ${cleanEmail}`);
     }
+  } catch (e) {
+    console.error('Erro inesperado ao enviar e-mail:', e);
+  }
 
-    // Resposta final para o site (o que faz o botão mudar de estado)
-    res.status(201).json({ success: true, message: "Cadastro realizado." });
-  });
+  res.status(201).json({ success: true, message: 'Cadastro realizado.' });
 };
 
 module.exports = {
   getWaitlistCount,
   addToWaitlist,
-  getAdminWaitlist
+  getAdminWaitlist,
 };

@@ -2,6 +2,7 @@
   "name": "tijolo-functions",
   "version": "1.0.0",
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.4",
     "resend": "^3.0.0"
   }
 }

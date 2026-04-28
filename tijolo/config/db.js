@@ -1,30 +1,21 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+require('dotenv').config();
+const { createClient } = require('@supabase/supabase-js');
 
-const dbPath = path.join(__dirname, '..', 'database.db');
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SECRET_KEY;
 
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error('Erro ao conectar ao banco de dados:', err.message);
-  } else {
-    console.log('Conectado ao banco de dados SQLite.');
-    
-    // Create the waitlist table if it does not exist
-    db.run(`
-      CREATE TABLE IF NOT EXISTS waitlist (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      )
-    `, (err) => {
-      if (err) {
-        console.error("Erro ao garantir a tabela waitlist:", err.message);
-      } else {
-        console.log("Tabela waitlist verificada com sucesso!");
-      }
-    });
-  }
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('SUPABASE_URL e SUPABASE_SECRET_KEY devem estar definidas nas variáveis de ambiente.');
+}
+
+// Service Role Key: bypassa RLS e nunca é exposta ao cliente
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false,
+  },
 });
 
-module.exports = db;
+console.log('Cliente Supabase inicializado.');
+
+module.exports = supabase;
