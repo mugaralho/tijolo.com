@@ -531,8 +531,8 @@ nav {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
   margin-top: 64px;
 }
 
@@ -542,6 +542,8 @@ nav {
   padding: 36px 28px;
   position: relative;
   transition: border-color 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .plan-card:hover { border-color: var(--border2); }
@@ -620,6 +622,7 @@ nav {
 
 .plan-features {
   list-style: none;
+  flex: 1;
 }
 
 .plan-features li {
@@ -675,6 +678,33 @@ nav {
 }
 
 .plan-card.featured .plan-cta:hover { background: var(--off); }
+
+/* Enterprise — borda tracejada especial */
+.plan-card.enterprise {
+  border: 1.5px dashed var(--border2);
+  background: var(--off);
+}
+
+.plan-card.enterprise:hover {
+  border-color: var(--ink);
+}
+
+.plan-card.enterprise .plan-name {
+  color: var(--light);
+}
+
+/* Nota de assento extra */
+.pricing-extra-seat {
+  font-size: 15px;
+  color: var(--mid);
+  text-align: center;
+  margin-top: 32px;
+}
+
+.pricing-extra-seat strong {
+  color: var(--ink);
+  font-weight: 500;
+}
 
 .cta-section {
   padding: 120px 48px;
