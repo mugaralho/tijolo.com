@@ -7,51 +7,90 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-159MML1ZZ0"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-159MML1ZZ0');
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>tijolo — Gestão de Projetos AEC</title>
-  <meta name="description" content="tijolo — Plataforma de gestão de projetos para escritórios de arquitetura. Organize arquivos por disciplina, convide complementares e rastreie tudo em um único lugar.">
-  <meta name="keywords" content="gestão de projetos arquitetura, software arquiteto, AEC, tijolo, gestão escritório arquitetura">
+  <meta name="description"
+    content="tijolo — Plataforma de gestão de projetos para escritórios de arquitetura. Organize arquivos por disciplina, convide complementares e rastreie tudo em um único lugar.">
+  <meta name="keywords"
+    content="gestão de projetos arquitetura, software arquiteto, AEC, tijolo, gestão escritório arquitetura">
   <meta name="author" content="tijolo">
   <meta property="og:title" content="tijolo — Todos os profissionais do seu projeto, num único lugar">
-  <meta property="og:description" content="Plataforma de gestão de projetos AEC. Arquivos organizados por disciplina, convites para complementares, notificações automáticas.">
+  <meta property="og:description"
+    content="Plataforma de gestão de projetos AEC. Arquivos organizados por disciplina, convites para complementares, notificações automáticas.">
   <meta property="og:url" content="https://tijolo.com.br">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="tijolo — Gestão de projetos AEC">
-  <meta name="twitter:description" content="Organize arquivos por disciplina, convide complementares e rastreie tudo em um único lugar.">
+  <meta name="twitter:description"
+    content="Organize arquivos por disciplina, convide complementares e rastreie tudo em um único lugar.">
   <link rel="canonical" href="https://tijolo.com.br">
 
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mobile.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='7' y='10' width='10' height='4' rx='1' fill='%23111'/><rect x='2' y='14' width='10' height='4' rx='1' fill='%23111'/><rect x='12' y='14' width='10' height='4' rx='1' fill='%23111'/></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='7' y='10' width='10' height='4' rx='1' fill='%23111'/><rect x='2' y='14' width='10' height='4' rx='1' fill='%23111'/><rect x='12' y='14' width='10' height='4' rx='1' fill='%23111'/></svg>">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='7' y='10' width='10' height='4' rx='1' fill='%23111'/><rect x='2' y='14' width='10' height='4' rx='1' fill='%23111'/><rect x='12' y='14' width='10' height='4' rx='1' fill='%23111'/></svg>">
+  <link rel="apple-touch-icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='7' y='10' width='10' height='4' rx='1' fill='%23111'/><rect x='2' y='14' width='10' height='4' rx='1' fill='%23111'/><rect x='12' y='14' width='10' height='4' rx='1' fill='%23111'/></svg>">
 </head>
 
 <body>
 
+  <!-- LIGHTBOX GALERIA -->
+  <div id="lightboxOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;flex-direction:column;" onclick="closeLightbox(event)">
+
+    <!-- Header do lightbox -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;flex-shrink:0;z-index:2;">
+      <div id="lightboxCounter" style="color:rgba(255,255,255,0.5);font-size:12px;font-family:'DM Sans',sans-serif;letter-spacing:1px;"></div>
+      <div id="lightboxTitle" style="color:rgba(255,255,255,0.8);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;text-align:center;flex:1;padding:0 16px;"></div>
+      <button onclick="closeLightboxBtn()" style="width:36px;height:36px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:50%;color:white;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✕</button>
+    </div>
+
+    <!-- Container do slide — renderiza no tamanho desktop, scroll e zoom nativo -->
+    <div style="flex:1;overflow:auto;-webkit-overflow-scrolling:touch;position:relative;" id="lightboxScrollContainer">
+      <div id="lightboxScreen" style="width:960px;min-height:500px;background:white;border-radius:12px;margin:0 auto 20px;overflow:hidden;transform-origin:top left;"></div>
+    </div>
+
+    <!-- Dica na primeira abertura -->
+    <div id="lightboxHint" style="text-align:center;color:rgba(255,255,255,0.3);font-size:11px;font-family:'DM Sans',sans-serif;padding:8px;flex-shrink:0;transition:opacity 0.5s;">
+      ← deslize para navegar · pinça para zoom →
+    </div>
+
+    <!-- Dots de navegação -->
+    <div id="lightboxDots" style="display:flex;justify-content:center;gap:8px;padding:12px 20px;flex-shrink:0;"></div>
+
+  </div>
+
   <!-- NAV -->
-  <nav id="main-nav">
+  <nav id="main-nav" class="nav-bar">
     <div class="nav-logo" onclick="showPage('landing')">tijolo</div>
     <div class="nav-links">
       <a href="#o-que-somos">O que somos</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="#funcionalidades">Funcionalidades</a>
       <a href="#precos">Preços</a>
-      <a href="https://www.instagram.com/tijolo.app/" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="Instagram">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <a href="https://www.instagram.com/tijolo.app/" target="_blank" rel="noopener noreferrer" class="nav-social-icon"
+        aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
           <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
         </svg>
       </a>
     </div>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" onclick="showPage('login')">Entrar</button>
+      <button class="btn btn-dark" onclick="showPage('signup')">Começar grátis</button>
+    </div>
+
   </nav>
   <!-- PAGE: LANDING -->
   <div class="page active" id="page-landing">
@@ -84,7 +123,8 @@
         </div>
 
         <!-- WAITLIST FORM -->
-        <div id="waitlist-section" data-aos="fade-up" data-aos-delay="400" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 24px; position: relative; z-index: 10; width: 100%;">
+        <div id="waitlist-section" data-aos="fade-up" data-aos-delay="400"
+          style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 24px; position: relative; z-index: 10; width: 100%;">
           <form id="hero-waitlist-form" style="display: flex; gap: 8px; width: 100%; max-width: 380px;">
             <input type="email" id="waitlist-email" placeholder="Seu melhor e-mail" required
               style="flex: 1; padding: 14px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: 6px; outline: none; background: var(--white); color: var(--ink); transition: border-color 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.02);"
@@ -94,7 +134,8 @@
               Solicitar Acesso
             </button>
           </form>
-          <div id="waitlist-message" style="display: none; font-size: 14px; color: #10B981; font-weight: 500; margin-top: 8px;">
+          <div id="waitlist-message"
+            style="display: none; font-size: 14px; color: #10B981; font-weight: 500; margin-top: 8px;">
             Solicitação enviada. Verifique seu e-mail.
           </div>
         </div>
@@ -122,20 +163,33 @@
         <!-- SLIDESHOW EMBUTIDO -->
         <div class="slideshow-wrapper" style="max-width: 1000px; margin: 0 auto; position: relative;">
           <!-- Label eyebrow animada -->
-          <div id="slideshow-label" style="text-align: center; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--light); margin-bottom: 24px; transition: opacity 0.3s;">VISÃO GERAL DO PROJETO</div>
-          
-          <div style="position: relative; display: flex; align-items: center;">
-            <button id="slide-prev" onclick="prevSlide()" class="slide-arrow prev-arrow" style="position: absolute; left: -24px; z-index: 10;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-            
-            <div class="slideshow-screen" style="width: 100%; height: 560px; background: white; border-radius: 12px; box-shadow: 0 12px 48px rgba(0,0,0,0.08); border: 1px solid var(--border); overflow: hidden; position: relative;">
+          <div id="slideshow-label"
+            style="text-align: center; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--light); margin-bottom: 24px; transition: opacity 0.3s;">
+            VISÃO GERAL DO PROJETO</div>
+
+          <div class="slideshow-stage" onclick="openLightbox()" style="position: relative; display: flex; align-items: center; cursor: pointer;">
+            <button id="slide-prev" onclick="prevSlide()" class="slide-arrow prev-arrow"
+              style="position: absolute; left: -24px; z-index: 10;"><svg width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg></button>
+
+            <div class="slideshow-screen"
+              style="width: 100%; height: 560px; background: white; border-radius: 12px; box-shadow: 0 12px 48px rgba(0,0,0,0.08); border: 1px solid var(--border); overflow: hidden; position: relative;">
               <!-- Container de transição -->
-              <div id="slideshow-content" class="slide-enter" style="width: 100%; height: 100%; position: relative;"></div>
+              <div id="slideshow-content" class="slide-enter" style="width: 100%; height: 100%; position: relative;">
+              </div>
             </div>
-            
-            <button id="slide-next" onclick="nextSlide()" class="slide-arrow next-arrow" style="position: absolute; right: -24px; z-index: 10;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+
+            <button id="slide-next" onclick="nextSlide()" class="slide-arrow next-arrow"
+              style="position: absolute; right: -24px; z-index: 10;"><svg width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg></button>
           </div>
-          
-          <div id="slideshow-dots" style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 32px; height: 10px;">
+
+          <div id="slideshow-dots"
+            style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 32px; height: 10px;">
             <!-- dots -->
           </div>
         </div>
@@ -292,7 +346,8 @@
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
               </svg></div>
             <div class="feature-title">Acesso do cliente</div>
-            <div class="feature-desc">O cliente acompanha o andamento do projeto em tempo real, sem precisar ligar. Transparência que gera confiança.</div>
+            <div class="feature-desc">O cliente acompanha o andamento do projeto em tempo real, sem precisar ligar.
+              Transparência que gera confiança.</div>
           </div>
         </div>
       </section>
@@ -378,7 +433,8 @@
               <li>Convidados externos ilimitados</li>
               <li>Histórico de 30 dias</li>
             </ul>
-            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)" style="display: block; text-decoration: none;">Começar grátis</a>
+            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)"
+              style="display: block; text-decoration: none;">Começar grátis</a>
           </div>
 
           <!-- SOLO -->
@@ -394,7 +450,8 @@
               <li>Histórico completo</li>
               <li>Notificações avançadas</li>
             </ul>
-            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)" style="display: block; text-decoration: none;">Assinar Solo</a>
+            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)"
+              style="display: block; text-decoration: none;">Assinar Solo</a>
           </div>
 
           <!-- PRO — DESTAQUE -->
@@ -412,7 +469,8 @@
               <li>Notificações avançadas</li>
               <li>Aprovações digitais</li>
             </ul>
-            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)" style="display: block; text-decoration: none;">Assinar Pro</a>
+            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)"
+              style="display: block; text-decoration: none;">Assinar Pro</a>
           </div>
 
           <!-- STUDIO -->
@@ -430,7 +488,8 @@
               <li>Relatórios PDF</li>
               <li>Suporte prioritário</li>
             </ul>
-            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)" style="display: block; text-decoration: none;">Assinar Studio</a>
+            <a href="#waitlist-section" class="plan-cta" onclick="scrollToWaitlist(event)"
+              style="display: block; text-decoration: none;">Assinar Studio</a>
           </div>
 
           <!-- ENTERPRISE -->
@@ -449,13 +508,15 @@
               <li>Onboarding personalizado</li>
               <li>Integração sob medida</li>
             </ul>
-            <a href="mailto:contato@tijolo.com.br?subject=Enterprise" class="plan-cta" style="display: block; text-decoration: none;">Falar com a equipe</a>
+            <a href="mailto:contato@tijolo.com.br?subject=Enterprise" class="plan-cta"
+              style="display: block; text-decoration: none;">Falar com a equipe</a>
           </div>
 
         </div>
 
         <p class="pricing-extra-seat">
-          Precisa de mais arquitetos internos? Adicione assentos extras por <strong>R$49/arquiteto/mês</strong> em qualquer plano.
+          Precisa de mais arquitetos internos? Adicione assentos extras por <strong>R$49/arquiteto/mês</strong> em
+          qualquer plano.
         </p>
 
       </section>
@@ -463,7 +524,8 @@
       <!-- CTA FINAL -->
       <section class="cta-section" style="text-align: center;">
         <h2 class="section-title" style="text-align: center;">Organize seu próximo<br><em>projeto agora.</em></h2>
-        <p class="section-sub" style="margin: 0 auto; text-align: center;">Grátis para começar. Sem cartão de crédito. Sem configuração complicada.</p>
+        <p class="section-sub" style="margin: 0 auto; text-align: center;">Grátis para começar. Sem cartão de crédito.
+          Sem configuração complicada.</p>
       </section>
 
       <!-- FOOTER -->

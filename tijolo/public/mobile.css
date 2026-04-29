@@ -1,0 +1,217 @@
+/* ═══════════════════════════════════════════════
+   tijolo · mobile.css · v4
+   Arquivo separado — não afeta desktop
+   Só ativa em telas ≤ 768px
+═══════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* --- Navbar: só logo, sem menu --- */
+  .nav-bar {
+    padding: 0 20px !important;
+    height: 52px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 200 !important;
+  }
+  .nav-links {
+    display: none !important;
+  }
+  .nav-actions {
+    display: none !important;
+  }
+  .nav-hamburger {
+    display: none !important;
+  }
+
+  /* Espaço abaixo da navbar fixa */
+  .landing {
+    padding-top: 52px !important;
+  }
+
+  /* --- Hero --- */
+  .hero {
+    padding: 52px 24px 48px !important;
+    min-height: auto !important;
+  }
+  .hero-title {
+    font-size: 36px !important;
+    line-height: 1.1 !important;
+    max-width: 100% !important;
+    margin-bottom: 24px !important;
+  }
+  .hero .btn-ghost {
+    display: none !important;
+  }
+  .hero .btn-dark {
+    width: 100% !important;
+    max-width: 320px !important;
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+  }
+
+  /* Hero — formulário de waitlist alinhado */
+  #hero-waitlist-form {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    margin: 0 auto !important;
+  }
+
+  #hero-waitlist-form input,
+  #waitlist-email {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 12px 16px !important;
+    font-size: 15px !important;
+    border-radius: 8px !important;
+    border: 1px solid #e5e5e5 !important;
+    margin: 0 !important;
+  }
+
+  #hero-waitlist-form button,
+  #waitlist-btn {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 13px 20px !important;
+    font-size: 15px !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+  }
+
+  /* --- Slideshow: swipe nativo, sem setas --- */
+  .slideshow-wrapper {
+    flex-direction: column !important;
+    padding: 0 !important;
+    gap: 12px !important;
+    align-items: center !important;
+  }
+  .slide-arrow {
+    display: none !important;
+  }
+  .slideshow-stage {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 20px !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    position: relative !important;
+  }
+  .slideshow-stage::after {
+    content: 'toque para ver em tela cheia';
+    display: block !important;
+    text-align: center !important;
+    font-size: 10px !important;
+    color: #bbb !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    margin-top: 10px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    pointer-events: none !important;
+  }
+  .slideshow-screen {
+    height: 360px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    transition: opacity 0.3s ease !important;
+  }
+  .slide-eyebrow {
+    font-size: 10px !important;
+    text-align: center !important;
+  }
+  .slide-dots {
+    margin-top: 14px !important;
+    justify-content: center !important;
+  }
+
+  /* --- Seções --- */
+  .section {
+    padding: 56px 24px !important;
+    max-width: 100% !important;
+  }
+  .section-title {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+  .section-sub {
+    font-size: 14px !important;
+    max-width: 100% !important;
+  }
+
+  /* --- Como funciona --- */
+  .how-it-works-layout {
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+  .how-sticky-side {
+    position: static !important;
+  }
+  .wheel-container {
+    display: none !important;
+  }
+  .how-scroll-side {
+    padding-bottom: 0 !important;
+    gap: 12px !important;
+  }
+  .step-card {
+    padding: 24px 20px !important;
+  }
+
+  /* --- Funcionalidades --- */
+  .features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-top: 28px !important;
+  }
+  .feature-cell {
+    padding: 24px 20px !important;
+  }
+
+  /* --- Provas sociais --- */
+  .social-section {
+    padding: 56px 24px !important;
+  }
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-bottom: 32px !important;
+  }
+  .social-stats {
+    flex-wrap: wrap !important;
+    gap: 24px 32px !important;
+    justify-content: center !important;
+    padding-top: 28px !important;
+  }
+
+  /* --- Preços --- */
+  .pricing-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .plan-card.featured {
+    order: -1 !important;
+  }
+
+  /* --- CTA final --- */
+  .cta-section {
+    padding: 72px 24px !important;
+  }
+  .cta-section .btn {
+    width: 100% !important;
+    max-width: 320px !important;
+  }
+
+  /* --- Rodapé --- */
+  footer {
+    padding: 28px 24px !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+}
