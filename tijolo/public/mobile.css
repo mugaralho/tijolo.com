@@ -1,12 +1,78 @@
-/* ═══════════════════════════════════════════════
-   tijolo · mobile.css · v4
-   Arquivo separado — não afeta desktop
-   Só ativa em telas ≤ 768px
-═══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   tijolo · mobile.css · v5
+   Filosofia: mesmo conteúdo do desktop, adaptado.
+   Nada escondido. Nada cortado.
+   Ativa em telas ≤ 1024px (celular + iPad)
+═══════════════════════════════════════════════════ */
+
+/* ── TABLET (iPad): até 1024px ────────────────────── */
+
+@media (max-width: 1024px) {
+
+  /* Navbar — compactar padding */
+  .nav-bar {
+    padding: 0 28px !important;
+  }
+  .nav-links {
+    gap: 20px !important;
+  }
+  .nav-links a {
+    font-size: 13px !important;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 32px 60px !important;
+  }
+  .hero-title {
+    font-size: clamp(40px, 6vw, 72px) !important;
+  }
+
+  /* Slideshow */
+  .slideshow-wrapper {
+    gap: 16px !important;
+    padding: 0 24px !important;
+  }
+  .slide-screen {
+    height: 480px !important;
+  }
+
+  /* Como funciona */
+  .how-it-works-layout {
+    gap: 40px !important;
+  }
+  .scale-wheel {
+    transform: scale(1.1) !important;
+    margin-top: 40px !important;
+  }
+
+  /* Funcionalidades */
+  .features-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Provas sociais */
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Preços — 2 colunas no iPad */
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+  .plan-card.featured {
+    grid-column: span 2 !important;
+  }
+}
+
+/* ── MOBILE: até 768px ────────────────────────────── */
 
 @media (max-width: 768px) {
 
-  /* --- Navbar: só logo, sem menu --- */
+  /* ── Navbar: logo à esquerda, botão CTA à direita ── */
   .nav-bar {
     padding: 0 20px !important;
     height: 52px !important;
@@ -16,79 +82,106 @@
     right: 0 !important;
     z-index: 200 !important;
   }
+  /* Esconde links do meio e botão "Entrar" — mantém só "Começar grátis" */
   .nav-links {
     display: none !important;
   }
-  .nav-actions {
+  .nav-actions .btn-ghost {
     display: none !important;
   }
-  .nav-hamburger {
-    display: none !important;
+  .nav-actions .btn-dark {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
   }
-
-  /* Espaço abaixo da navbar fixa */
+  /* Compensar navbar fixa */
   .landing {
     padding-top: 52px !important;
   }
 
-  /* --- Hero --- */
+  /* ── Hero ─────────────────────────────────────────── */
   .hero {
     padding: 52px 24px 48px !important;
     min-height: auto !important;
   }
   .hero-title {
-    font-size: 36px !important;
+    font-size: clamp(32px, 9vw, 48px) !important;
     line-height: 1.1 !important;
     max-width: 100% !important;
-    margin-bottom: 24px !important;
+    margin-bottom: 20px !important;
   }
-  .hero .btn-ghost {
-    display: none !important;
+  /* Bullets do hero — manter visíveis, fonte menor */
+  .hero > div[style*="line-height"] p {
+    font-size: 0.95rem !important;
   }
-  .hero .btn-dark {
+  /* Botões hero — empilhar verticalmente */
+  .hero > div[style*="gap:12px"],
+  .hero > div[style*="gap: 12px"] {
+    flex-direction: column !important;
+    align-items: center !important;
     width: 100% !important;
-    max-width: 320px !important;
+    gap: 10px !important;
+  }
+  .hero .btn-dark,
+  .hero .btn-ghost {
+    width: 100% !important;
+    max-width: 340px !important;
+    text-align: center !important;
     padding: 14px 20px !important;
     font-size: 15px !important;
   }
-
-  /* Hero — formulário de waitlist alinhado */
-  #hero-waitlist-form {
+  /* Formulário de waitlist */
+  #hero-waitlist-form,
+  form[id*="waitlist"] {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    max-width: 320px !important;
+    max-width: 340px !important;
     gap: 10px !important;
     align-items: stretch !important;
     margin: 0 auto !important;
   }
-
   #hero-waitlist-form input,
-  #waitlist-email {
+  #waitlist-email,
+  form[id*="waitlist"] input {
     width: 100% !important;
     box-sizing: border-box !important;
     padding: 12px 16px !important;
     font-size: 15px !important;
     border-radius: 8px !important;
-    border: 1px solid #e5e5e5 !important;
-    margin: 0 !important;
   }
-
   #hero-waitlist-form button,
-  #waitlist-btn {
+  #waitlist-btn,
+  form[id*="waitlist"] button {
     width: 100% !important;
     box-sizing: border-box !important;
-    padding: 13px 20px !important;
+    padding: 14px 20px !important;
     font-size: 15px !important;
     border-radius: 8px !important;
-    margin: 0 !important;
   }
 
-  /* --- Slideshow: swipe nativo, sem setas --- */
+  /* ── Seções gerais ─────────────────────────────────── */
+  .section {
+    padding: 60px 20px !important;
+    max-width: 100% !important;
+  }
+  .section-title {
+    font-size: clamp(26px, 7vw, 36px) !important;
+    line-height: 1.2 !important;
+  }
+  .section-sub {
+    font-size: 14px !important;
+    max-width: 100% !important;
+  }
+  .section-eyebrow {
+    font-size: 10px !important;
+  }
+
+  /* ── Slideshow ─────────────────────────────────────── */
+  /* Sem setas laterais — navega pelos dots */
   .slideshow-wrapper {
     flex-direction: column !important;
-    padding: 0 !important;
-    gap: 12px !important;
+    padding: 0 20px !important;
+    gap: 0 !important;
     align-items: center !important;
   }
   .slide-arrow {
@@ -97,13 +190,26 @@
   .slideshow-stage {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 0 20px !important;
-    overflow: hidden !important;
+    padding: 0 !important;
     cursor: pointer !important;
-    position: relative !important;
   }
+  .slide-screen {
+    height: 300px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+  .slide-eyebrow {
+    font-size: 10px !important;
+    text-align: center !important;
+  }
+  .slide-dots {
+    margin-top: 14px !important;
+    justify-content: center !important;
+  }
+  /* Indicador de toque */
   .slideshow-stage::after {
-    content: 'toque para ver em tela cheia';
+    content: 'toque para ver em tela cheia' !important;
     display: block !important;
     text-align: center !important;
     font-size: 10px !important;
@@ -114,45 +220,26 @@
     font-family: 'DM Sans', sans-serif !important;
     pointer-events: none !important;
   }
-  .slideshow-screen {
-    height: 360px !important;
-    border-radius: 12px !important;
-    width: 100% !important;
-    transition: opacity 0.3s ease !important;
-  }
-  .slide-eyebrow {
-    font-size: 10px !important;
-    text-align: center !important;
-  }
-  .slide-dots {
-    margin-top: 14px !important;
-    justify-content: center !important;
-  }
 
-  /* --- Seções --- */
-  .section {
-    padding: 56px 24px !important;
-    max-width: 100% !important;
-  }
-  .section-title {
-    font-size: 28px !important;
-    line-height: 1.2 !important;
-  }
-  .section-sub {
-    font-size: 14px !important;
-    max-width: 100% !important;
-  }
-
-  /* --- Como funciona --- */
+  /* ── Como funciona ─────────────────────────────────── */
   .how-it-works-layout {
     flex-direction: column !important;
-    gap: 32px !important;
+    gap: 0 !important;
   }
   .how-sticky-side {
     position: static !important;
+    padding-bottom: 20px !important;
+    text-align: left !important;
   }
+  /* Roda animada — visível mas menor */
   .wheel-container {
-    display: none !important;
+    width: 280px !important;
+    height: 280px !important;
+    margin: 0 auto !important;
+  }
+  .scale-wheel {
+    transform: scale(0.85) !important;
+    margin-top: 0 !important;
   }
   .how-scroll-side {
     padding-bottom: 0 !important;
@@ -160,58 +247,174 @@
   }
   .step-card {
     padding: 24px 20px !important;
+    border-radius: 12px !important;
+  }
+  .step-card .step-num {
+    font-size: 36px !important;
+    margin-bottom: 12px !important;
+  }
+  .step-card .step-title {
+    font-size: 13px !important;
+  }
+  .step-card .step-desc {
+    font-size: 13px !important;
   }
 
-  /* --- Funcionalidades --- */
+  /* ── Funcionalidades ───────────────────────────────── */
   .features-grid {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
-    margin-top: 28px !important;
+    margin-top: 32px !important;
   }
   .feature-cell {
     padding: 24px 20px !important;
+    border-radius: 12px !important;
+  }
+  .feature-title {
+    font-size: 14px !important;
+  }
+  .feature-desc {
+    font-size: 13px !important;
   }
 
-  /* --- Provas sociais --- */
+  /* ── Provas sociais ────────────────────────────────── */
   .social-section {
-    padding: 56px 24px !important;
+    padding: 60px 20px !important;
+  }
+  .social-section-inner {
+    max-width: 100% !important;
+  }
+  .social-eyebrow {
+    font-size: 10px !important;
+    margin-bottom: 28px !important;
   }
   .testimonials-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
-    margin-bottom: 32px !important;
+    gap: 14px !important;
+    margin-bottom: 40px !important;
+  }
+  .testimonial-card {
+    padding: 24px 20px !important;
+    border-radius: 12px !important;
+  }
+  .testimonial-quote {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+  .testimonial-name {
+    font-size: 13px !important;
+  }
+  .testimonial-role {
+    font-size: 11px !important;
   }
   .social-stats {
     flex-wrap: wrap !important;
     gap: 24px 32px !important;
     justify-content: center !important;
-    padding-top: 28px !important;
+    padding-top: 32px !important;
+  }
+  /* Esconde divisores verticais entre stats */
+  .social-stats > div[style*="width:1px"],
+  .social-stats > div[style*="width: 1px"] {
+    display: none !important;
+  }
+  .social-stat-value {
+    font-size: 32px !important;
+  }
+  .social-stat-label {
+    font-size: 12px !important;
   }
 
-  /* --- Preços --- */
+  /* ── Preços — 1 coluna, Pro primeiro ──────────────── */
   .pricing-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 14px !important;
+    margin-top: 32px !important;
+  }
+  .plan-card {
+    padding: 28px 22px !important;
   }
   .plan-card.featured {
     order: -1 !important;
   }
+  .plan-price {
+    font-size: 44px !important;
+  }
+  .plan-price sup {
+    font-size: 18px !important;
+  }
+  .plan-features li {
+    font-size: 13px !important;
+  }
+  /* Nota de assentos adicionais */
+  .pricing-grid + p,
+  .section#precos > p:last-of-type {
+    font-size: 13px !important;
+    text-align: center !important;
+    padding: 0 8px !important;
+  }
 
-  /* --- CTA final --- */
+  /* ── CTA final ─────────────────────────────────────── */
   .cta-section {
-    padding: 72px 24px !important;
+    padding: 80px 24px !important;
+  }
+  .cta-section .section-title {
+    font-size: clamp(26px, 7vw, 36px) !important;
+  }
+  .cta-section .section-sub {
+    font-size: 14px !important;
   }
   .cta-section .btn {
     width: 100% !important;
-    max-width: 320px !important;
+    max-width: 340px !important;
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+    display: block !important;
+    margin: 0 auto !important;
   }
 
-  /* --- Rodapé --- */
+  /* ── Rodapé ────────────────────────────────────────── */
   footer {
-    padding: 28px 24px !important;
+    padding: 32px 20px !important;
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 16px !important;
     text-align: center !important;
     align-items: center !important;
+  }
+  .footer-logo {
+    font-size: 16px !important;
+  }
+  .footer-copy {
+    font-size: 11px !important;
+  }
+  /* Links do rodapé em linha */
+  footer > div[style*="gap:24px"],
+  footer > div[style*="gap: 24px"] {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+
+  /* ── Lightbox ──────────────────────────────────────── */
+  #lightboxOverlay {
+    padding: 0 !important;
+  }
+}
+
+/* ── MOBILE PEQUENO: até 390px ────────────────────── */
+
+@media (max-width: 390px) {
+  .hero-title {
+    font-size: 30px !important;
+  }
+  .section-title {
+    font-size: 24px !important;
+  }
+  .slide-screen {
+    height: 260px !important;
+  }
+  .nav-actions .btn-dark {
+    padding: 7px 12px !important;
+    font-size: 12px !important;
   }
 }

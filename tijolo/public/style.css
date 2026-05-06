@@ -1160,104 +1160,427 @@ footer {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* ─── RESPONSIVIDADE (PHONE VERSION) ─── */
-@media (max-width: 768px) {
+/* ═══════════════════════════════════════════════════════════
+   TIJOLO — MOBILE REFACTOR COMPLETO
+   Substitui o bloco @media (max-width: 768px) e adiciona 480px
+   Cole no final do style.css, removendo o bloco antigo
+   ═══════════════════════════════════════════════════════════ */
 
-  /* Navigation */
-  nav {
-    flex-direction: column;
-    padding: 16px 20px;
-    gap: 16px;
-    height: auto;
-    align-items: center;
-  }
-
-  .nav-links {
-    gap: 20px;
-    overflow-x: auto;
-    width: 100%;
-    justify-content: center;
-    padding-bottom: 8px;
-  }
-
-  .nav-links a {
-    font-size: 14px;
-    white-space: nowrap;
-  }
-
-  .nav-social-icon {
-    margin-left: 0;
-  }
-
-  /* Hero Section */
-  .landing {
-    padding: 140px 20px 80px;
-  }
-
-  .hero-title {
-    font-size: 2.8rem;
-    line-height: 1.1;
-  }
-
-  #hero-waitlist-form {
-    flex-direction: column;
-    gap: 12px !important;
-  }
-
-  #hero-waitlist-form input {
-    width: 100%;
-  }
-
-  #hero-waitlist-form button {
-    width: 100%;
-  }
-
-  /* Section Spacing */
-  section {
-    padding: 60px 20px !important;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  /* Grids to Single Column */
-  .feature-grid,
+/* ─── TABLET (≤ 1024px): grids intermediários ─── */
+@media (max-width: 1024px) {
   .pricing-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-top: 40px;
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Slideshow optimization */
-  .slideshow-container {
-    height: auto;
-    min-height: 300px;
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Scale down iframe inside slideshow if necessary */
-  #slideshow-content iframe {
-    transform-origin: top center;
+  .steps .step:nth-child(2) {
+    border-right: none;
   }
 
-  /* CTA Final */
-  .cta-section {
-    padding: 80px 20px !important;
+  .steps .step:nth-child(3) {
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
   }
 
-  /* Plan cards scaling */
-  .plan-card {
-    padding: 32px 24px;
-  }
-
-  .plan-price {
-    font-size: 40px;
+  .steps .step:nth-child(4) {
+    border-top: 1px solid var(--border);
+    border-right: none;
   }
 }
 
-/* Extra small devices */
-@media (max-width: 480px) {
+/* ─── MOBILE (≤ 768px) ─── */
+@media (max-width: 768px) {
+
+  /* == NAV == */
+  nav {
+    padding: 0 20px;
+    height: 56px;
+    gap: 0;
+    justify-content: space-between;
+    flex-direction: row; /* mantém em linha no mobile */
+  }
+
+  .nav-links {
+    display: none; /* esconde links — hamburger pode ser adicionado depois */
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .nav-actions .btn-ghost {
+    display: none; /* esconde "Entrar" ghost, mantém só o CTA principal */
+  }
+
+  .nav-logo {
+    font-size: 24px;
+  }
+
+  /* == LANDING / HERO == */
+  .landing {
+    padding-top: 56px; /* altura do nav mobile */
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 60px 20px 48px;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
   .hero-title {
-    font-size: 2.2rem;
+    font-size: clamp(36px, 9vw, 52px);
+    line-height: 1.08;
+    margin-bottom: 20px;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    margin-bottom: 36px;
+    max-width: 100%;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  #hero-waitlist-form {
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100%;
+  }
+
+  #hero-waitlist-form input,
+  #hero-waitlist-form button {
+    width: 100% !important;
+  }
+
+  /* == ROLES STRIP / WHEEL == */
+  .wheel-container {
+    width: 280px;
+    height: 280px;
+  }
+
+  .scale-wheel {
+    transform: scale(1.0);
+    margin-top: 40px;
+  }
+
+  /* == SECTIONS == */
+  .section {
+    padding: 64px 20px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 7vw, 40px);
+    line-height: 1.15;
+  }
+
+  .section-sub {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  /* == COMO FUNCIONA (sticky side-by-side → coluna) == */
+  .how-it-works-layout {
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 32px;
+  }
+
+  .how-sticky-side {
+    position: static; /* desativa sticky em mobile */
+    flex: none;
+    width: 100%;
+  }
+
+  .how-scroll-side {
+    flex: none;
+    width: 100%;
+    padding-bottom: 0;
+    gap: 20px;
+  }
+
+  .step-card {
+    padding: 28px 24px;
+  }
+
+  .step-card .step-num {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  /* == STEPS GRID (4 colunas → 1 coluna) == */
+  .steps {
+    grid-template-columns: 1fr;
+    border-radius: 8px;
+    margin-top: 40px;
+  }
+
+  .step {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px;
+  }
+
+  .step:last-child {
+    border-bottom: none;
+  }
+
+  .step-num {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+
+  /* == FEATURES GRID (2 colunas → 1 coluna) == */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .feature-cell {
+    padding: 28px 24px;
+    border-radius: 12px;
+  }
+
+  /* == PRICING GRID (5 → 1 coluna) == */
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 40px;
+    /* scroll horizontal suave como fallback */
+    overflow-x: visible;
+  }
+
+  .plan-card {
+    padding: 28px 24px;
+  }
+
+  .plan-price {
+    font-size: 44px;
+  }
+
+  .plan-badge {
+    font-size: 9px;
+  }
+
+  /* == PREVIEW APP (tabela / iframe / screenshot) == */
+  /* Container do preview — evita overflow horizontal */
+  .preview-container,
+  .app-preview,
+  [class*="preview"],
+  [class*="screenshot"],
+  [class*="mockup"] {
+    width: 100% !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+  }
+
+  /* Qualquer iframe dentro de slideshow/preview */
+  #slideshow-content iframe,
+  .preview-frame {
+    width: 100% !important;
+    max-width: 100%;
+    transform: none !important;
+  }
+
+  /* Tabela de tarefas que aparece no preview */
+  .task-table,
+  table {
+    min-width: 520px; /* permite scroll horizontal interno */
+    font-size: 12px;
+  }
+
+  /* Container que envolve a tabela — habilita scroll sem cortar */
+  .table-wrapper,
+  .task-list-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  /* Quadro de tarefas do mockup interno */
+  .board-card,
+  .task-board {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  /* == TESTIMONIALS == */
+  .testimonials-grid,
+  [class*="testimonial"] > div {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  /* == CTA SECTION == */
+  .cta-section {
+    padding: 80px 20px;
+  }
+
+  .cta-section .section-title {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+
+  .cta-section .section-sub {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .cta-section .hero-cta {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cta-section .hero-cta .btn {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* == FOOTER == */
+  footer {
+    flex-direction: column;
+    padding: 32px 20px;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-links {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* == AUTH CARD == */
+  .auth-card {
+    padding: 32px 24px 28px;
+    border-radius: 16px;
+  }
+
+  /* == APP (interior do produto) == */
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .app-sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .sidebar-section {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
+
+  .sidebar-label {
+    display: none;
+  }
+
+  .sidebar-item {
+    padding: 8px 16px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+
+  .sidebar-item.active {
+    border-left: none;
+    border-bottom-color: var(--ink);
+  }
+
+  .app-content {
+    padding: 20px 16px 60px;
+  }
+
+  .app-topbar {
+    padding: 0 16px;
+  }
+
+  .proj-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 20px;
+  }
+
+  .proj-name {
+    font-size: 22px;
+  }
+
+  /* == PRICING EXTRA NOTE == */
+  .pricing-extra-seat {
+    font-size: 13px;
+    padding: 0 4px;
+    text-align: left;
+  }
+}
+
+/* ─── EXTRA SMALL (≤ 480px) ─── */
+@media (max-width: 480px) {
+
+  .hero-title {
+    font-size: clamp(30px, 8vw, 40px);
+  }
+
+  .section-title {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .nav-logo {
+    font-size: 22px;
+  }
+
+  .hero {
+    padding: 48px 16px 40px;
+  }
+
+  .section {
+    padding: 52px 16px;
+  }
+
+  /* Pricing: preço menor em tela muito pequena */
+  .plan-price {
+    font-size: 38px;
+  }
+
+  .plan-card {
+    padding: 24px 20px;
+  }
+
+  /* Feature cells mais compactos */
+  .feature-cell {
+    padding: 24px 20px;
+  }
+
+  .step-card {
+    padding: 24px 20px;
   }
 }
