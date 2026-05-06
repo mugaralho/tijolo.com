@@ -326,18 +326,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
-  // Navegação Secundária do App Mockup
-  window.showAppSection = function (sectionId, element) {
-    document.querySelectorAll('.app-content').forEach(s => s.style.display = 'none');
-    const tgt = document.getElementById('section-' + sectionId);
-    if (tgt) tgt.style.display = 'block';
-
-    if (element) {
-      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-      element.classList.add('active');
-    }
-  }
-
   // Handle Waitlist Form
   const waitlistForm = document.getElementById('hero-waitlist-form');
   if (waitlistForm) {
@@ -519,40 +507,3 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 });
 
-// ── MENU MOBILE ──────────────────────────────────────
-
-function toggleMobileMenu() {
-  const menu = document.getElementById('navMobileMenu');
-  const btn = document.getElementById('navHamburger');
-  if (!menu || !btn) return;
-  const isOpen = menu.classList.contains('open');
-  menu.classList.toggle('open');
-  btn.classList.toggle('open');
-  document.body.style.overflow = isOpen ? '' : 'hidden';
-}
-
-function closeMobileMenu() {
-  const menu = document.getElementById('navMobileMenu');
-  const btn = document.getElementById('navHamburger');
-  if (!menu || !btn) return;
-  menu.classList.remove('open');
-  btn.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function scrollToSection(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
-}
-
-// Fechar menu ao clicar fora
-document.addEventListener('click', function(e) {
-  const menu = document.getElementById('navMobileMenu');
-  const btn = document.getElementById('navHamburger');
-  if (!menu || !btn) return;
-  if (menu.classList.contains('open')) {
-    if (!menu.contains(e.target) && !btn.contains(e.target)) {
-      closeMobileMenu();
-    }
-  }
-});

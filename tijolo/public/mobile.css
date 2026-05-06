@@ -271,6 +271,13 @@
   }
 
   /* ── Provas sociais ────────────────────────────────── */
+  /* Stats grid: 4 colunas → 2 no mobile */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+    margin-bottom: 40px !important;
+  }
+
   .social-section {
     padding: 60px 20px !important;
   }
