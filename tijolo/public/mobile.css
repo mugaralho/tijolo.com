@@ -82,16 +82,9 @@
     right: 0 !important;
     z-index: 200 !important;
   }
-  /* Esconde links do meio e botão "Entrar" — mantém só "Começar grátis" */
+  /* Esconde links de navegação no mobile */
   .nav-links {
     display: none !important;
-  }
-  .nav-actions .btn-ghost {
-    display: none !important;
-  }
-  .nav-actions .btn-dark {
-    padding: 8px 16px !important;
-    font-size: 13px !important;
   }
   /* Compensar navbar fixa */
   .landing {
@@ -412,9 +405,5 @@
   }
   .slide-screen {
     height: 260px !important;
-  }
-  .nav-actions .btn-dark {
-    padding: 7px 12px !important;
-    font-size: 12px !important;
   }
 }
